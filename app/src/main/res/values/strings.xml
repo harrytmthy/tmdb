@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TMDB</string>
+    <string name="activity_movie_default_title">Popular Movies</string>
 </resources>
