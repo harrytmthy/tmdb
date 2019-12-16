@@ -26,27 +26,45 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
 
     private final MovieModelMapper movieModelMapper;
 
+    private boolean canLoadNextPage;
+
     @Inject
     public MoviePresenter(GetPopularMovies getPopularMovies, MovieModelMapper movieModelMapper) {
         this.getPopularMoviesUseCase = getPopularMovies;
         this.movieModelMapper = movieModelMapper;
+        canLoadNextPage = false;
     }
 
     @Override
-    protected ObservableTransformer<MovieAction, MovieState> dispatch() {
+    public ObservableTransformer<MovieAction, MovieState> dispatch() {
         return movieActionObservable -> movieActionObservable.switchMap(movieAction -> {
-            if(movieAction instanceof MovieAction.Initial){
-                return Observable.just(this.movieModelMapper.toLoadingState());
+            if(movieAction instanceof MovieAction.LoadPopularMovies){
+                return getPopularMoviesUseCase
+                    .execute(((MovieAction.LoadPopularMovies) movieAction).page)
+                    .map(this.movieModelMapper::mapToDataState)
+                    .onErrorReturn(MovieState.Error::new);
             }
-            return getPopularMoviesUseCase.execute(null)
-                .map(this.movieModelMapper::mapToDataState)
-                .onErrorReturn(this.movieModelMapper::mapToErrorState);
+            return Observable.just(this.movieModelMapper.toLoadingState());
         });
     }
 
     public void refresh() {
         new Handler().postDelayed(() ->
-            setAction(new MovieAction.LoadPopularMovies()),AppConstants.SWIPE_REFRESH_DELAY);
+            setAction(new MovieAction.LoadPopularMovies(1)),AppConstants.SWIPE_REFRESH_DELAY);
+    }
+
+    void setLoadNextPage() {
+        this.canLoadNextPage = true;
+    }
+
+    public void nextPage() {
+        if(!canLoadNextPage) return;
+        MovieState currentState = state.get();
+        if(currentState instanceof MovieState.Data) {
+            int nextPage = ((MovieState.Data) currentState).data.getPage() + 1;
+            setAction(new MovieAction.LoadPopularMovies(nextPage));
+            canLoadNextPage = false;
+        }
     }
 
 }

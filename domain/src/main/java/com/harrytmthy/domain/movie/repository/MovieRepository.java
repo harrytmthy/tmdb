@@ -10,6 +10,6 @@ import io.reactivex.Observable;
  */
 public interface MovieRepository {
 
-    Observable<PagedMovie> getPopularMovie();
+    Observable<PagedMovie> getPopularMovie(int page);
 
 }

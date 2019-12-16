@@ -1,6 +1,6 @@
 package com.harrytmthy.tmdb.movie;
 
-import com.harrytmthy.domain.movie.model.Movie;
+import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseActivity;
 import com.harrytmthy.tmdb.databinding.ActivityMovieBinding;
@@ -9,8 +9,6 @@ import com.harrytmthy.tmdb.movie.model.MovieState;
 
 import android.os.Bundle;
 import android.widget.Toast;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -55,12 +53,13 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
 
     @Override
     public void renderLoadingState() {
-        presenter.setAction(new MovieAction.LoadPopularMovies());
+        presenter.setAction(new MovieAction.LoadPopularMovies(1));
     }
 
     @Override
-    public void renderDataState(List<Movie> movies) {
-        adapter.addItems(movies);
+    public void renderDataState(PagedMovie pagedMovie) {
+        adapter.addItems(pagedMovie.getMovies());
+        presenter.setLoadNextPage();
     }
 
     @Override

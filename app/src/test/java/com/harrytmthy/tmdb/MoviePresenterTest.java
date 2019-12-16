@@ -40,9 +40,10 @@ public class MoviePresenterTest {
     public void movieState_inMoviePresenter_isRendered() {
         MovieAction action = new MovieAction.Initial();
         MovieState state = new MovieState.Loading();
-        moviePresenter.bind(movieView);
 
         given(movieModelMapper.toLoadingState()).willReturn(state);
+
+        moviePresenter.bind(movieView);
         moviePresenter.setAction(action);
 
         verify(movieModelMapper).toLoadingState();

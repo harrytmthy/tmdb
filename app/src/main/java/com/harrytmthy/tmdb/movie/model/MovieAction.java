@@ -10,6 +10,14 @@ public interface MovieAction extends BaseAction {
 
     final class Initial implements MovieAction {}
 
-    final class LoadPopularMovies implements MovieAction {}
+    final class LoadPopularMovies implements MovieAction {
+
+        public int page;
+
+        public LoadPopularMovies(int page) {
+            this.page = page;
+        }
+
+    }
 
 }

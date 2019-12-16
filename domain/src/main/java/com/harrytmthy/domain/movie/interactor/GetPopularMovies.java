@@ -14,7 +14,7 @@ import io.reactivex.Observable;
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version GetPopularMovies, v 0.1 2019-12-11 17:12 by Harry Timothy
  */
-public class GetPopularMovies extends BaseUseCase<PagedMovie, Void> {
+public class GetPopularMovies extends BaseUseCase<PagedMovie, Integer> {
 
     private final MovieRepository movieRepository;
 
@@ -26,8 +26,8 @@ public class GetPopularMovies extends BaseUseCase<PagedMovie, Void> {
     }
 
     @Override
-    public Observable<PagedMovie> buildUseCaseObservable(Void unused) {
-        return movieRepository.getPopularMovie();
+    public Observable<PagedMovie> buildUseCaseObservable(Integer page) {
+        return movieRepository.getPopularMovie(page);
     }
 
 }

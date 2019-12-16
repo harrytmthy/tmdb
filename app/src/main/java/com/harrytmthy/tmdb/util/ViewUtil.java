@@ -9,15 +9,13 @@ import com.harrytmthy.tmdb.common.AppConstants;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.os.Build;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -54,6 +52,24 @@ public final class ViewUtil {
     @BindingAdapter("adapter")
     public static void bindAdapter(RecyclerView recyclerView, BaseAdapter adapter) {
         recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter("onScroll")
+    public static void onScroll(RecyclerView recyclerView, Runnable onScroll) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                LinearLayoutManager layoutManager =
+                    (LinearLayoutManager) recyclerView.getLayoutManager();
+                if(layoutManager == null) return;
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                if (totalItemCount == lastVisibleItemPosition + 1) {
+                    onScroll.run();
+                }
+            }
+        });
     }
 
 }

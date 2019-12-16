@@ -1,10 +1,8 @@
 package com.harrytmthy.tmdb.movie;
 
-import com.harrytmthy.domain.movie.model.Movie;
+import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.base.BaseView;
 import com.harrytmthy.tmdb.movie.model.MovieState;
-
-import java.util.List;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -16,7 +14,7 @@ public interface MovieView<S extends MovieState> extends BaseView<S> {
 
     void renderLoadingState();
 
-    void renderDataState(List<Movie> movies);
+    void renderDataState(PagedMovie pagedMovie);
 
     void renderErrorState(Throwable error);
 

@@ -41,6 +41,7 @@
                     android:overScrollMode="never"
                     app:adapter="@{adapter}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:onScroll="@{() -> presenter.nextPage()}"
                     app:spanCount="2" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,9 +1,7 @@
 package com.harrytmthy.tmdb.movie.model;
 
-import com.harrytmthy.domain.movie.model.Movie;
+import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.base.BaseState;
-
-import java.util.List;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -15,9 +13,9 @@ public interface MovieState extends BaseState {
 
     final class Data implements MovieState {
 
-        public List<Movie> data;
+        public PagedMovie data;
 
-        public Data(List<Movie> data) {
+        public Data(PagedMovie data) {
             this.data = data;
         }
 

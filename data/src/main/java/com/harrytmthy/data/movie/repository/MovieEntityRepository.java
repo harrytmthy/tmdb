@@ -28,7 +28,9 @@ public class MovieEntityRepository implements MovieRepository {
     }
 
     @Override
-    public Observable<PagedMovie> getPopularMovie() {
-        return movieEntityDataFactory.createService().getPopularMovie().map(movieResultMapper::map);
+    public Observable<PagedMovie> getPopularMovie(int page) {
+        return movieEntityDataFactory.createService()
+            .getPopularMovie(page)
+            .map(movieResultMapper::map);
     }
 }
