@@ -41,11 +41,10 @@ public final class ViewUtil {
 
     @BindingAdapter("loadFromPath")
     public static void loadFromPath(ImageView imageView, String path) {
-        boolean isPathEmpty = path == null || path.isEmpty();
+        boolean isPathNullOrEmpty = path == null || path.isEmpty();
         Glide.with(imageView.getContext())
-            .load(isPathEmpty ? R.drawable.ic_no_image : DataConstants.IMAGE_URL + path)
+            .load(isPathNullOrEmpty ? R.drawable.ic_no_image : DataConstants.IMAGE_URL + path)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .fitCenter()
             .into(imageView);
     }
 

@@ -19,4 +19,9 @@ public interface MovieEntityData {
         @Query(DataConstants.PARAM_API_PAGE) int page
     );
 
+    @GET(DataConstants.API_MOVIE_TOP_RATED)
+    Observable<PagedResult<MovieResult>> getTopRatedMovie(
+        @Query(DataConstants.PARAM_API_PAGE) int page
+    );
+
 }

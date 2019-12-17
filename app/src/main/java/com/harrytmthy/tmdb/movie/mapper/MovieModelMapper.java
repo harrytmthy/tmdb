@@ -21,6 +21,10 @@ public class MovieModelMapper implements BaseMapper<PagedMovie, MovieState> {
         return new MovieState.Data(type);
     }
 
+    public MovieState mapToErrorState(Throwable throwable, int page) {
+        return new MovieState.Error(throwable, page);
+    }
+
     public MovieState toLoadingState() {
         return new MovieState.Loading();
     }

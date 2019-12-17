@@ -43,12 +43,12 @@ public class MovieEntityRepositoryTest {
     public void getPopularMovie_inMovieEntityRepository_isCalled() {
         PagedResult<MovieResult> pagedMovieResult = new PagedResult<>();
         movieResultMapper.map(pagedMovieResult);
-        given(movieEntityData.getPopularMovie()).willReturn(Observable.just(pagedMovieResult));
+        given(movieEntityData.getPopularMovie(1)).willReturn(Observable.just(pagedMovieResult));
 
-        movieEntityRepository.getPopularMovie();
+        movieEntityRepository.getPopularMovie(1);
 
         verify(movieEntityDataFactory).createService();
-        verify(movieEntityData).getPopularMovie();
+        verify(movieEntityData).getPopularMovie(1);
     }
 
 }

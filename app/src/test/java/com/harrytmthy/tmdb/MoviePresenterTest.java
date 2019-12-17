@@ -44,7 +44,7 @@ public class MoviePresenterTest {
         given(movieModelMapper.toLoadingState()).willReturn(state);
 
         moviePresenter.bind(movieView);
-        moviePresenter.setAction(action);
+        moviePresenter.doAction(action);
 
         verify(movieModelMapper).toLoadingState();
         verify(movieView).render(state);

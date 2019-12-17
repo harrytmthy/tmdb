@@ -20,4 +20,14 @@ public interface MovieAction extends BaseAction {
 
     }
 
+    final class LoadTopRatedMovies implements MovieAction {
+
+        public int page;
+
+        public LoadTopRatedMovies(int page) {
+            this.page = page;
+        }
+
+    }
+
 }

@@ -19,6 +19,12 @@ public abstract class BaseAdapter<D, VH extends RecyclerView.ViewHolder> extends
 
     protected OnItemClickListener<D> listener;
 
+    public void setItems(List<D> items) {
+        this.items.clear();
+        this.items.addAll(items);
+        this.notifyDataSetChanged();
+    }
+
     public void addItems(List<D> items) {
         this.items.addAll(items);
         this.notifyItemRangeInserted(items.size(), items.size());

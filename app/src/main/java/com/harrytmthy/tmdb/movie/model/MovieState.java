@@ -25,8 +25,11 @@ public interface MovieState extends BaseState {
 
         public Throwable error;
 
-        public Error(Throwable error) {
+        public int page;
+
+        public Error(Throwable error, int page) {
             this.error = error;
+            this.page = page;
         }
 
     }

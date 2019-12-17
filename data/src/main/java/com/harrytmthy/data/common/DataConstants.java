@@ -14,6 +14,8 @@ public final class DataConstants {
 
     public static final String API_MOVIE_POPULAR = "/3/movie/popular";
 
+    public static final String API_MOVIE_TOP_RATED = "/3/movie/top_rated";
+
     public static final String PARAM_API_KEY = "api_key";
 
     public static final String PARAM_API_PAGE = "page";

@@ -1,6 +1,7 @@
 package com.harrytmthy.tmdb.movie;
 
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
+import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
 import com.harrytmthy.tmdb.movie.mapper.MovieModelMapper;
 
 import dagger.Module;
@@ -15,8 +16,9 @@ public abstract class MovieActivityModule {
 
     @Provides
     static MoviePresenter provideMoviePresenter(GetPopularMovies getPopularMovies,
+        GetTopRatedMovies getTopRatedMovies,
         MovieModelMapper movieModelMapper) {
-        return new MoviePresenter(getPopularMovies, movieModelMapper);
+        return new MoviePresenter(getPopularMovies, getTopRatedMovies, movieModelMapper);
     }
 
 }

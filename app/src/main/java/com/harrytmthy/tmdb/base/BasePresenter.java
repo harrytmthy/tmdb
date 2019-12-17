@@ -33,7 +33,7 @@ public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
 
     abstract protected ObservableTransformer<A, S> dispatch();
 
-    public void setAction(A action) {
+    public void doAction(A action) {
         this.action.onNext(action);
     }
 

@@ -33,4 +33,12 @@ public class MovieEntityRepository implements MovieRepository {
             .getPopularMovie(page)
             .map(movieResultMapper::map);
     }
+
+    @Override
+    public Observable<PagedMovie> getTopRatedMovie(int page) {
+        return movieEntityDataFactory.createService()
+            .getTopRatedMovie(page)
+            .map(movieResultMapper::map);
+    }
+
 }

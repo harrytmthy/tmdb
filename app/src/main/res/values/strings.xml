@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TMDB</string>
-    <string name="activity_movie_default_title">Popular Movies</string>
+    <string name="activity_movie_popular_title">Popular Movies</string>
+    <string name="activity_movie_top_rated_title">Top Rated Movies</string>
+    <string name="menu_movie_popular">Popular</string>
+    <string name="menu_movie_top_rated">Top Rated</string>
+    <string name="menu_movie_favorite">Favorite</string>
 </resources>

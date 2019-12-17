@@ -12,4 +12,6 @@ public interface MovieRepository {
 
     Observable<PagedMovie> getPopularMovie(int page);
 
+    Observable<PagedMovie> getTopRatedMovie(int page);
+
 }
