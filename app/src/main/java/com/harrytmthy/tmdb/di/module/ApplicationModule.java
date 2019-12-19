@@ -1,9 +1,13 @@
 package com.harrytmthy.tmdb.di.module;
 
+import com.harrytmthy.data.authentication.mapper.AuthResultMapper;
+import com.harrytmthy.data.authentication.repository.AuthEntityRepository;
+import com.harrytmthy.data.authentication.source.AuthEntityDataFactory;
 import com.harrytmthy.data.executor.JobExecutor;
 import com.harrytmthy.data.movie.mapper.MovieResultMapper;
 import com.harrytmthy.data.movie.repository.MovieEntityRepository;
 import com.harrytmthy.data.movie.source.MovieEntityDataFactory;
+import com.harrytmthy.domain.authentication.repository.AuthRepository;
 import com.harrytmthy.domain.executor.PostExecutionThread;
 import com.harrytmthy.domain.executor.ThreadExecutor;
 import com.harrytmthy.domain.movie.repository.MovieRepository;
@@ -29,13 +33,11 @@ public abstract class ApplicationModule {
 
     @Binds abstract PostExecutionThread providePostExecutionThread(UIThread uiThread);
 
-    @Provides
-    static MovieEntityDataFactory provideMovieEntityDataFactory() {
+    @Provides static MovieEntityDataFactory provideMovieEntityDataFactory() {
         return new MovieEntityDataFactory();
     }
 
-    @Provides
-    static MovieEntityRepository provideMovieEntityRepository(
+    @Provides static MovieEntityRepository provideMovieEntityRepository(
         MovieEntityDataFactory movieEntityDataFactory,
         MovieResultMapper movieResultMapper) {
         return new MovieEntityRepository(movieEntityDataFactory, movieResultMapper);
@@ -43,5 +45,17 @@ public abstract class ApplicationModule {
 
     @Binds
     abstract MovieRepository provideMovieRepository(MovieEntityRepository movieEntityRepository);
+
+    @Provides static AuthEntityDataFactory provideAuthEntityDataFactory() {
+        return new AuthEntityDataFactory();
+    }
+
+    @Provides static AuthEntityRepository provideAuthEntityRepository(
+        AuthEntityDataFactory authEntityDataFactory,
+        AuthResultMapper authResultMapper) {
+        return new AuthEntityRepository(authEntityDataFactory, authResultMapper);
+    }
+
+    @Binds abstract AuthRepository provideAuthRepository(AuthEntityRepository authEntityRepository);
 
 }

@@ -18,11 +18,12 @@ import io.reactivex.Observable;
 public class MovieEntityRepository implements MovieRepository {
 
     private final MovieEntityDataFactory movieEntityDataFactory;
+
     private final MovieResultMapper movieResultMapper;
 
     @Inject
     public MovieEntityRepository(MovieEntityDataFactory movieEntityDataFactory,
-                                 MovieResultMapper movieResultMapper) {
+        MovieResultMapper movieResultMapper) {
         this.movieEntityDataFactory = movieEntityDataFactory;
         this.movieResultMapper = movieResultMapper;
     }

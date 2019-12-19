@@ -20,7 +20,7 @@ public class MovieEntityDataFactory extends BaseEntityDataFactory {
 
     public MovieEntityData createService() {
         return new Retrofit.Builder().client(client)
-            .baseUrl(DataConstants.API_URL)
+            .baseUrl(DataConstants.URL_API)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
             .build().create(MovieEntityData.class);

@@ -14,6 +14,7 @@ import android.os.Handler;
 
 import javax.inject.Inject;
 
+import androidx.annotation.VisibleForTesting;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 
@@ -32,17 +33,21 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
 
     private MovieAction defaultAction;
 
-    private boolean canLoadNextPage;
+    @VisibleForTesting
+    public boolean canLoadNextPage;
 
     @Inject
-    public MoviePresenter(GetPopularMovies getPopularMovies,
-        GetTopRatedMovies getTopRatedMovies,
+    public MoviePresenter(GetPopularMovies getPopularMovies, GetTopRatedMovies getTopRatedMovies,
         MovieModelMapper movieModelMapper) {
         this.getPopularMoviesUseCase = getPopularMovies;
         this.getTopRatedMoviesUseCase = getTopRatedMovies;
         this.movieModelMapper = movieModelMapper;
         defaultAction = new MovieAction.LoadPopularMovies(1);
         canLoadNextPage = false;
+    }
+
+    public void canLoadNextPage() {
+        this.canLoadNextPage = true;
     }
 
     @Override
@@ -63,23 +68,6 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
             .onErrorReturn(throwable -> new MovieState.Error(throwable, page));
     }
 
-    public void refresh() {
-        new Handler().postDelayed(() ->
-            doAction(defaultAction),AppConstants.SWIPE_REFRESH_DELAY);
-    }
-
-    void canLoadNextPage() {
-        this.canLoadNextPage = true;
-    }
-
-    void setDefaultAction(MovieAction action) {
-        this.defaultAction = action;
-    }
-
-    MovieAction getDefaultAction() {
-        return this.defaultAction;
-    }
-
     public void nextPage() {
         if(!canLoadNextPage) return;
         final MovieState currentState = state.get();
@@ -96,6 +84,20 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
             doAction(new MovieAction.LoadTopRatedMovies(currentPage + 1));
         }
         canLoadNextPage = false;
+    }
+
+    public void refresh() {
+        canLoadNextPage = false;
+        new Handler().postDelayed(() ->
+            doAction(defaultAction),AppConstants.SWIPE_REFRESH_DELAY);
+    }
+
+    public void setDefaultAction(MovieAction action) {
+        this.defaultAction = action;
+    }
+
+    public MovieAction getDefaultAction() {
+        return this.defaultAction;
     }
 
 }

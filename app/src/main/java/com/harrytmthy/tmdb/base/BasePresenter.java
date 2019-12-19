@@ -14,7 +14,7 @@ import io.reactivex.subjects.PublishSubject;
  */
 public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
 
-    private BaseView<S> view;
+    protected BaseView<S> view;
 
     private final CompositeDisposable compositeDisposable;
 

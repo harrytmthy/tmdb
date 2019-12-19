@@ -18,8 +18,7 @@ public class GetPopularMovies extends BaseUseCase<PagedMovie, Integer> {
 
     private final MovieRepository movieRepository;
 
-    @Inject
-    public GetPopularMovies(MovieRepository movieRepository, ThreadExecutor threadExecutor,
+    @Inject public GetPopularMovies(MovieRepository movieRepository, ThreadExecutor threadExecutor,
         PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.movieRepository = movieRepository;

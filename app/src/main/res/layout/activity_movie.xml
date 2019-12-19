@@ -55,7 +55,7 @@
             android:visibility="@{presenter.state instanceof MovieState.Loading ? View.VISIBLE : View.GONE}"
             app:animateRotation="@{true}"
             app:srcCompat="@drawable/ic_loading"
-            app:tint="@color/colorAccent"
+            app:tint="?attr/colorControlNormal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

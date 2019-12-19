@@ -1,4 +1,4 @@
-package com.harrytmthy.data;
+package com.harrytmthy.data.repository;
 
 import com.harrytmthy.data.common.PagedResult;
 import com.harrytmthy.data.movie.mapper.MovieResultMapper;
@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -41,7 +44,11 @@ public class MovieEntityRepositoryTest {
 
     @Test
     public void getPopularMovie_inMovieEntityRepository_isCalled() {
+        MovieResult movieResult = new MovieResult();
+        List<MovieResult> movieResults = new ArrayList<>();
+        movieResults.add(movieResult);
         PagedResult<MovieResult> pagedMovieResult = new PagedResult<>();
+        pagedMovieResult.setResults(movieResults);
         movieResultMapper.map(pagedMovieResult);
         given(movieEntityData.getPopularMovie(1)).willReturn(Observable.just(pagedMovieResult));
 
@@ -49,6 +56,18 @@ public class MovieEntityRepositoryTest {
 
         verify(movieEntityDataFactory).createService();
         verify(movieEntityData).getPopularMovie(1);
+    }
+
+    @Test
+    public void getTopRatedMovie_inMovieEntityRepository_isCalled() {
+        PagedResult<MovieResult> pagedMovieResult = new PagedResult<>();
+        movieResultMapper.map(pagedMovieResult);
+        given(movieEntityData.getTopRatedMovie(1)).willReturn(Observable.just(pagedMovieResult));
+
+        movieEntityRepository.getTopRatedMovie(1);
+
+        verify(movieEntityDataFactory).createService();
+        verify(movieEntityData).getTopRatedMovie(1);
     }
 
 }

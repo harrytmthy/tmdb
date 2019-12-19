@@ -1,12 +1,14 @@
 package com.harrytmthy.domain.movie.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version Movie, v 0.1 2019-12-11 14:47 by Harry Timothy
  */
-@Data public class Movie {
+@Getter @Setter
+public class Movie {
 
     private int id;
 

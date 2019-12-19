@@ -86,10 +86,10 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
         final int itemId = item.getItemId();
         if(itemId == R.id.popular) {
             presenter.setDefaultAction(new MovieAction.LoadPopularMovies(1));
-            getSupportActionBar().setTitle(getString(R.string.activity_movie_popular_title));
+            getSupportActionBar().setTitle(getString(R.string.activity_movie_title_popular));
         } else if(itemId == R.id.topRated) {
             presenter.setDefaultAction(new MovieAction.LoadTopRatedMovies(1));
-            getSupportActionBar().setTitle(getString(R.string.activity_movie_top_rated_title));
+            getSupportActionBar().setTitle(getString(R.string.activity_movie_title_top_rated));
         } else return super.onOptionsItemSelected(item);
         presenter.doAction(new MovieAction.Initial());
         return true;

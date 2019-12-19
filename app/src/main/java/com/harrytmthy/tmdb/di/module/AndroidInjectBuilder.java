@@ -1,5 +1,7 @@
 package com.harrytmthy.tmdb.di.module;
 
+import com.harrytmthy.tmdb.authentication.LoginActivity;
+import com.harrytmthy.tmdb.authentication.LoginActivityModule;
 import com.harrytmthy.tmdb.di.ActivityScope;
 import com.harrytmthy.tmdb.movie.MovieActivity;
 import com.harrytmthy.tmdb.movie.MovieActivityModule;
@@ -17,5 +19,9 @@ public abstract class AndroidInjectBuilder {
     @ActivityScope
     @ContributesAndroidInjector(modules = MovieActivityModule.class)
     abstract MovieActivity bindMovieActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+    abstract LoginActivity bindLoginActivity();
 
 }

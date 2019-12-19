@@ -2,13 +2,15 @@ package com.harrytmthy.data.movie.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version MovieResult, v 0.1 2019-12-11 11:04 by Harry Timothy
  */
-@Data public class MovieResult {
+@Getter @Setter
+public class MovieResult {
 
     private float popularity;
 

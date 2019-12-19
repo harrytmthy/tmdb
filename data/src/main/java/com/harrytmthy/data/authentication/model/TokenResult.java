@@ -2,16 +2,20 @@ package com.harrytmthy.data.authentication.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
- * @version AuthResult, v 0.1 2019-12-10 21:17 by Harry Timothy
+ * @version TokenResult, v 0.1 2019-12-10 21:17 by Harry Timothy
  */
-@Data public class AuthResult {
+@Getter @Setter
+public class TokenResult {
 
     private boolean success;
-    @SerializedName("guest_session_id") private String guestSessionId;
+
     @SerializedName("expires_at") private String expiresAt;
+
+    @SerializedName("request_token") private String requestToken;
 
 }

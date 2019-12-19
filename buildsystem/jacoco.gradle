@@ -1,0 +1,103 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+def jacocoExclusion = [
+        '**/generated/**',
+        '**/*Constants*',
+        '**/databinding/**/*.*',
+        '**/DataBind*',
+        '**/executor/**',
+        '**/android/databinding/*Binding.*',
+        '**/BR.*',
+        '**/R.*',
+        '**/R$*.*',
+        '**/BuildConfig.*',
+        '**/Manifest*.*',
+        '**/*_MembersInjector.*',
+        '**/di/**/*.*',
+        '**/Dagger*Component.*',
+        '**/Dagger*Component*.*',
+        '**/Dagger*Component$Builder.*',
+        '**/*Module_*Factory.*',
+        '**/*Fragment*.*',
+        '**/*Activity*.*',
+        '**/*Adapter*.*',
+        '**/*Dialog*.*',
+        '**/*ViewPager*.*',
+        '**/*ViewHolder*.*',
+        '**/*Module*.*',
+        '**/*_*Factory.*',
+        '**/*_Factory.*',
+        '**/model/*.*',
+        '**/richview/**/*.*',
+        '**/glide/*.*',
+        '**/view/*.*',
+        '**/views/*.*',
+        '**/*_ViewBinding*.*',
+        '**/*ItemDecoration*.*',
+        '**/*Transformation*.*',
+        '**/*_Impl*.*',
+        '**/*Plugin*.*',
+        '**/*Service*.*',
+        '**/*View*.*',
+        '**/*Response.*',
+        '**/*BroadcastReceiver.*',
+        '**/*Receiver.*',
+        '**/*Application.*',
+        '**/*Showcase.*',
+        '**/Permission.*',
+        '**/showcase/Calculator.*',
+        '**/*AutoValue*.*',
+        '**/SvgDecoder.*',
+        '**/*Entity.*',
+        '**/*Mock*.*',
+        '**/shape/*.*',
+        '**/*Decoration.*',
+        '**/*Exception.*',
+        '**/**$**',
+]
+
+subprojects {
+
+    apply plugin: 'jacoco'
+
+    jacoco {
+        toolVersion = "0.8.5"
+    }
+
+    tasks.withType(Test) {
+        ignoreFailures = true
+    }
+
+    task jacocoTestReport(type: JacocoReport) {
+        dependsOn = ["testDebugUnitTest"]
+        group = "Reporting"
+        description "Generate jacoco coverage reports after running unit test"
+        reports {
+            html.enabled true
+            xml.enabled true
+        }
+        classDirectories = fileTree(
+                dir: "${project.buildDir}/intermediates/javac/debug",
+                excludes: jacocoExclusion
+        )
+        sourceDirectories = files("${project.projectDir}/src/main/java")
+        executionData = fileTree("${project.buildDir}").include("/jacoco/*.exec")
+    }
+}
+
+task jacocoRootReport(type: JacocoReport) {
+    dependsOn = subprojects.jacocoTestReport
+
+    reports {
+        html.enabled true
+        xml.enabled true
+    }
+
+    sourceDirectories = files(subprojects.jacocoTestReport.sourceDirectories)
+    classDirectories = files(subprojects.jacocoTestReport.classDirectories)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+}

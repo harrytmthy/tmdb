@@ -9,8 +9,10 @@ import com.harrytmthy.tmdb.common.AppConstants;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -43,7 +45,7 @@ public final class ViewUtil {
     public static void loadFromPath(ImageView imageView, String path) {
         boolean isPathNullOrEmpty = path == null || path.isEmpty();
         Glide.with(imageView.getContext())
-            .load(isPathNullOrEmpty ? R.drawable.ic_no_image : DataConstants.IMAGE_URL + path)
+            .load(isPathNullOrEmpty ? R.drawable.ic_no_image : DataConstants.URL_IMAGE + path)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(imageView);
     }
@@ -51,6 +53,11 @@ public final class ViewUtil {
     @BindingAdapter("adapter")
     public static void bindAdapter(RecyclerView recyclerView, BaseAdapter adapter) {
         recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter("onTextChanged")
+    public static void textChangedListener(EditText editText, TextWatcher textWatcher) {
+        editText.addTextChangedListener(textWatcher);
     }
 
     @BindingAdapter("onScroll")

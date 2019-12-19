@@ -12,14 +12,13 @@ import io.reactivex.Observable;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
- * @version GetPopularMovies, v 0.1 2019-12-11 17:12 by Harry Timothy
+ * @version GetTopRatedMovies, v 0.1 2019-17-11 12:01 by Harry Timothy
  */
 public class GetTopRatedMovies extends BaseUseCase<PagedMovie, Integer> {
 
     private final MovieRepository movieRepository;
 
-    @Inject
-    public GetTopRatedMovies(MovieRepository movieRepository, ThreadExecutor threadExecutor,
+    @Inject public GetTopRatedMovies(MovieRepository movieRepository, ThreadExecutor threadExecutor,
         PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.movieRepository = movieRepository;

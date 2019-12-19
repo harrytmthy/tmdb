@@ -4,14 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version PagedResult, v 0.1 2019-12-11 10:33 by Harry Timothy
  */
 
-@Data public class PagedResult<R> {
+@Getter @Setter
+public class PagedResult<R> {
 
     private int page;
 

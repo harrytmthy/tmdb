@@ -1,10 +1,16 @@
 package com.harrytmthy.data.authentication.source;
 
-import com.harrytmthy.data.authentication.model.AuthResult;
+import com.harrytmthy.data.authentication.model.SessionResult;
+import com.harrytmthy.data.authentication.model.TokenResult;
 import com.harrytmthy.data.common.DataConstants;
+import com.harrytmthy.domain.authentication.model.SessionParam;
+import com.harrytmthy.domain.authentication.model.TokenParam;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -13,6 +19,14 @@ import retrofit2.http.GET;
 public interface AuthEntityData {
 
     @GET(DataConstants.API_NEW_TOKEN)
-    Observable<AuthResult> authenticate();
+    Observable<TokenResult> createToken();
+
+    @POST(DataConstants.API_VALIDATE_TOKEN)
+    @Headers("Content-Type: application/json")
+    Observable<TokenResult> validateToken(@Body TokenParam params);
+
+    @POST(DataConstants.API_NEW_SESSION)
+    @Headers("Content-Type: application/json")
+    Observable<SessionResult> createSession(@Body SessionParam params);
 
 }
