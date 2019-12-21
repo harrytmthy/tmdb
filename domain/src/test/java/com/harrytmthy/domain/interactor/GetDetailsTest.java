@@ -2,7 +2,7 @@ package com.harrytmthy.domain.interactor;
 
 import com.harrytmthy.domain.executor.PostExecutionThread;
 import com.harrytmthy.domain.executor.ThreadExecutor;
-import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
+import com.harrytmthy.domain.movie.interactor.GetDetails;
 import com.harrytmthy.domain.movie.repository.MovieRepository;
 
 import org.junit.Before;
@@ -17,12 +17,12 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
- * @version GetPopularMoviesTest, v 0.1 2019-12-11 17:54 by Harry Timothy
+ * @version GetDetailsTest, v 0.1 2019-12-19 15:23 by Harry Timothy
  */
 @RunWith(MockitoJUnitRunner.class)
-public class GetPopularMoviesTest {
+public class GetDetailsTest {
 
-    private GetPopularMovies getPopularMovies;
+    private GetDetails getDetails;
 
     @Mock private ThreadExecutor threadExecutor;
 
@@ -32,14 +32,14 @@ public class GetPopularMoviesTest {
 
     @Before
     public void setUp() {
-        getPopularMovies = new GetPopularMovies(movieRepository, threadExecutor,
+        getDetails = new GetDetails(movieRepository, threadExecutor,
             postExecutionThread);
     }
 
     @Test
-    public void getPopularMovies_isCalled() {
-        getPopularMovies.buildUseCaseObservable(1);
-        verify(movieRepository).getPopularMovie(1);
+    public void getDetails_isCalled() {
+        getDetails.buildUseCaseObservable(1);
+        verify(movieRepository).getDetails(1);
         verifyNoMoreInteractions(movieRepository);
         verifyZeroInteractions(threadExecutor);
         verifyZeroInteractions(postExecutionThread);

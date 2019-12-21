@@ -5,13 +5,13 @@ import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
- * @version Movie, v 0.1 2019-12-11 14:47 by Harry Timothy
+ * @version Genre, v 0.1 2019-12-19 14:48 by Harry Timothy
  */
 @Getter @Setter
-public class Movie {
+public class Genre {
 
     private int id;
 
-    private String posterPath;
+    private String name;
 
 }

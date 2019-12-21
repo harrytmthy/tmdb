@@ -1,4 +1,4 @@
-package com.harrytmthy.tmdb.movie.model;
+package com.harrytmthy.tmdb.movie.list.model;
 
 import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.base.BaseState;
@@ -10,6 +10,8 @@ import com.harrytmthy.tmdb.base.BaseState;
 public interface MovieState extends BaseState {
 
     final class Loading implements MovieState {}
+
+    final class Refreshing implements MovieState {}
 
     final class Data implements MovieState {
 
@@ -25,11 +27,8 @@ public interface MovieState extends BaseState {
 
         public Throwable error;
 
-        public int page;
-
-        public Error(Throwable error, int page) {
+        public Error(Throwable error) {
             this.error = error;
-            this.page = page;
         }
 
     }

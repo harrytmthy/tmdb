@@ -2,10 +2,10 @@ package com.harrytmthy.tmdb.util;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.harrytmthy.data.common.DataConstants;
+import com.harrytmthy.data.constants.DataConstants;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseAdapter;
-import com.harrytmthy.tmdb.common.AppConstants;
+import com.harrytmthy.tmdb.constants.AppConstants;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;

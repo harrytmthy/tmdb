@@ -1,5 +1,6 @@
 package com.harrytmthy.domain.movie.repository;
 
+import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.domain.movie.model.PagedMovie;
 
 import io.reactivex.Observable;
@@ -9,6 +10,8 @@ import io.reactivex.Observable;
  * @version MovieRepository, v 0.1 2019-12-11 14:52 by Harry Timothy
  */
 public interface MovieRepository {
+
+    Observable<MovieDetail> getDetails(int movieId);
 
     Observable<PagedMovie> getPopularMovie(int page);
 

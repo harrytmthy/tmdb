@@ -1,6 +1,6 @@
 package com.harrytmthy.data.base;
 
-import com.harrytmthy.data.common.DataConstants;
+import com.harrytmthy.data.constants.DataConstants;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;

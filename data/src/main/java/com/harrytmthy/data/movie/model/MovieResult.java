@@ -2,6 +2,10 @@ package com.harrytmthy.data.movie.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import com.harrytmthy.domain.movie.model.Genre;
+
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,30 +18,24 @@ public class MovieResult {
 
     private float popularity;
 
-    @SerializedName("vote_count") private int voteCount;
-
-    private boolean video;
-
     @SerializedName("poster_path") private String posterPath;
 
     private int id;
 
-    private boolean adult;
-
-    @SerializedName("backdrop_path") private String backdropPath;
-
-    @SerializedName("original_language") private String originalLanguage;
-
     @SerializedName("original_title") private String originalTitle;
 
-    @SerializedName("genre_ids") private int[] genreIds;
-
     private String title;
-
-    @SerializedName("vote_average") private float voteAverage;
 
     private String overview;
 
     @SerializedName("release_date") private String releaseDate;
+
+    private int runtime;
+
+    @SerializedName("vote_average") private float voteAverage;
+
+    @SerializedName("genres") private List<Genre> genres;
+
+    //@SerializedName("videos") private Video videos;
 
 }

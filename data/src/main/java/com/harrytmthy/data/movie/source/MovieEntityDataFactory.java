@@ -3,7 +3,7 @@ package com.harrytmthy.data.movie.source;
 import com.google.gson.GsonBuilder;
 
 import com.harrytmthy.data.base.BaseEntityDataFactory;
-import com.harrytmthy.data.common.DataConstants;
+import com.harrytmthy.data.constants.DataConstants;
 
 import javax.inject.Singleton;
 

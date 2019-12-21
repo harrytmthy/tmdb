@@ -2,7 +2,7 @@ package com.harrytmthy.data.authentication.source;
 
 import com.harrytmthy.data.authentication.model.SessionResult;
 import com.harrytmthy.data.authentication.model.TokenResult;
-import com.harrytmthy.data.common.DataConstants;
+import com.harrytmthy.data.constants.DataConstants;
 import com.harrytmthy.domain.authentication.model.SessionParam;
 import com.harrytmthy.domain.authentication.model.TokenParam;
 

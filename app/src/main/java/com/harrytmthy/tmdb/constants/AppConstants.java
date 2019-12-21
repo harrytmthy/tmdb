@@ -1,4 +1,4 @@
-package com.harrytmthy.tmdb.common;
+package com.harrytmthy.tmdb.constants;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)

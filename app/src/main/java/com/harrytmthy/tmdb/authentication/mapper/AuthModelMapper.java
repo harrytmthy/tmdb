@@ -21,8 +21,4 @@ public class AuthModelMapper implements BaseMapper<Auth, AuthState> {
         return new AuthState.Data(type);
     }
 
-    public AuthState toLoadingState() {
-        return new AuthState.Loading();
-    }
-
 }

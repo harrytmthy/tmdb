@@ -1,9 +1,9 @@
-package com.harrytmthy.tmdb.movie.mapper;
+package com.harrytmthy.tmdb.movie.list.mapper;
 
 import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.base.BaseMapper;
 import com.harrytmthy.tmdb.di.ActivityScope;
-import com.harrytmthy.tmdb.movie.model.MovieState;
+import com.harrytmthy.tmdb.movie.list.model.MovieState;
 
 import javax.inject.Inject;
 
@@ -19,10 +19,6 @@ public class MovieModelMapper implements BaseMapper<PagedMovie, MovieState> {
     @Override
     public MovieState mapToDataState(PagedMovie type) {
         return new MovieState.Data(type);
-    }
-
-    public MovieState toLoadingState() {
-        return new MovieState.Loading();
     }
 
 }

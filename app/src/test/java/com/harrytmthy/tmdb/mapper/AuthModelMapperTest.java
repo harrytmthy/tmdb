@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -35,12 +34,6 @@ public class AuthModelMapperTest {
         Auth data = ((AuthState.Data) authState).data;
         assertEquals(auth.getRequestToken(), data.getRequestToken());
         assertEquals(auth.getSessionId(), data.getSessionId());
-    }
-
-    @Test
-    public void toLoadingState_inAuthModelMapper_mapsCorrectly() {
-        AuthState state = authModelMapper.toLoadingState();
-        assertTrue(state instanceof AuthState.Loading);
     }
 
 }

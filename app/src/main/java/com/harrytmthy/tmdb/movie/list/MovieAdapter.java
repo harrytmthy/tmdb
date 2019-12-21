@@ -1,4 +1,4 @@
-package com.harrytmthy.tmdb.movie;
+package com.harrytmthy.tmdb.movie.list;
 
 import com.harrytmthy.domain.movie.model.Movie;
 import com.harrytmthy.tmdb.R;
@@ -42,13 +42,10 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(getItem(position));
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if(listener == null) return;
-            listener.onItemClick(getItem(position));
-        });
+        holder.binding.poster.setOnClickListener(v -> listener.onItemClick(getItem(position)));
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ItemMovieBinding binding;
 

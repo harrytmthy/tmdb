@@ -3,11 +3,11 @@ package com.harrytmthy.tmdb.presenter;
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
 import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
 import com.harrytmthy.domain.movie.model.PagedMovie;
-import com.harrytmthy.tmdb.movie.MoviePresenter;
-import com.harrytmthy.tmdb.movie.MovieView;
-import com.harrytmthy.tmdb.movie.mapper.MovieModelMapper;
-import com.harrytmthy.tmdb.movie.model.MovieAction;
-import com.harrytmthy.tmdb.movie.model.MovieState;
+import com.harrytmthy.tmdb.movie.list.MoviePresenter;
+import com.harrytmthy.tmdb.movie.list.MovieView;
+import com.harrytmthy.tmdb.movie.list.mapper.MovieModelMapper;
+import com.harrytmthy.tmdb.movie.list.model.MovieAction;
+import com.harrytmthy.tmdb.movie.list.model.MovieState;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,53 +54,58 @@ public class MoviePresenterTest {
     }
 
     @Test
-    public void movieState_inMoviePresenter_isRendered() {
-        MovieAction action = new MovieAction.Initial();
-        MovieState state = new MovieState.Loading();
-
-        given(movieModelMapper.toLoadingState()).willReturn(state);
-
-        moviePresenter.doAction(action);
-
-        verify(movieModelMapper).toLoadingState();
-        verify(movieView).render(state);
-    }
-
-    @Test
     public void useCase_inMoviePresenter_isExecuted() {
         PagedMovie pagedMovie = new PagedMovie();
-        MovieAction action = new MovieAction.LoadPopularMovies(1);
 
         given(getPopularMovies.execute(1)).willReturn(Observable.just(pagedMovie));
+        given(getTopRatedMovies.execute(1)).willReturn(Observable.just(pagedMovie));
 
+        MovieAction action = new MovieAction.LoadPopularMovies();
+        moviePresenter.doAction(action);
+
+        action = new MovieAction.LoadTopRatedMovies();
         moviePresenter.doAction(action);
 
         verify(getPopularMovies).execute(1);
-        verifyZeroInteractions(getTopRatedMovies);
+        verify(getTopRatedMovies).execute(1);
     }
 
     @Test
-    public void canLoadNextPage_inMoviePresenter_worksCorrectly() {
+    public void setCanLoadNextPage_inMoviePresenter_worksCorrectly() {
         moviePresenter.canLoadNextPage = false;
-        moviePresenter.canLoadNextPage();
+        moviePresenter.setCanLoadNextPage(true);
         assertTrue(moviePresenter.canLoadNextPage);
     }
 
     @Test
-    public void nextPage_worksCorrectly() {
+    public void loadNextPage_worksCorrectly() {
+        moviePresenter.lastUseCase = getTopRatedMovies;
+
+        moviePresenter.loadNextPage();
+        verifyZeroInteractions(getTopRatedMovies);
+
         moviePresenter.canLoadNextPage = true;
-        moviePresenter.doAction(new MovieAction.LoadPopularMovies(1));
-        moviePresenter.nextPage();
-        moviePresenter.doAction(new MovieAction.LoadTopRatedMovies(1));
-        moviePresenter.nextPage();
+        moviePresenter.loadNextPage();
+
+        verify(getTopRatedMovies).execute(2);
         assertFalse(moviePresenter.canLoadNextPage);
     }
 
     @Test
-    public void setDefaultAction_worksCorrectly() {
-        MovieAction action = new MovieAction.Initial();
-        moviePresenter.setDefaultAction(action);
-        assertEquals(action, moviePresenter.getDefaultAction());
+    public void refresh_refreshActionIsHandled() {
+        moviePresenter.lastUseCase = getPopularMovies;
+
+        given(getPopularMovies.execute(1)).willReturn(Observable.just(new PagedMovie()));
+        moviePresenter.refresh();
+
+        verify(getPopularMovies).execute(1);
+    }
+
+    @Test
+    public void setCurrentPage_worksCorrectly() {
+        final int currentPage = 10;
+        moviePresenter.setCurrentPage(currentPage);
+        assertEquals(10, moviePresenter.currentPage);
     }
 
 }

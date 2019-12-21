@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.base;
 
+import androidx.annotation.CallSuper;
 import androidx.databinding.ObservableField;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,6 +34,7 @@ public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
 
     abstract protected ObservableTransformer<A, S> dispatch();
 
+    @CallSuper
     public void doAction(A action) {
         this.action.onNext(action);
     }
@@ -40,7 +42,10 @@ public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
     public void bind(BaseView<S> view) {
         this.view = view;
         compositeDisposable.add(action.compose(dispatcher)
-            .subscribe(this.view::render));
+            .subscribe(state -> {
+                this.state.set(state);
+                this.view.render(state);
+            }));
     }
 
     public void unbind() {

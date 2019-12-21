@@ -1,5 +1,6 @@
 package com.harrytmthy.data.repository;
 
+import com.harrytmthy.data.constants.DataConstants;
 import com.harrytmthy.data.common.PagedResult;
 import com.harrytmthy.data.movie.mapper.MovieResultMapper;
 import com.harrytmthy.data.movie.model.MovieResult;
@@ -40,6 +41,18 @@ public class MovieEntityRepositoryTest {
     public void setUp() {
         movieEntityRepository = new MovieEntityRepository(movieEntityDataFactory, movieResultMapper);
         given(movieEntityDataFactory.createService()).willReturn(movieEntityData);
+    }
+
+    @Test
+    public void getDetails_inMovieEntityRepository_isCalled() {
+        MovieResult movieResult = new MovieResult();
+        given(movieEntityData.getDetails(1, DataConstants.DEFAULT_APPEND_RESPONSE))
+            .willReturn(Observable.just(movieResult));
+
+        movieEntityRepository.getDetails(1);
+
+        verify(movieEntityDataFactory).createService();
+        verify(movieEntityData).getDetails(1, DataConstants.DEFAULT_APPEND_RESPONSE);
     }
 
     @Test

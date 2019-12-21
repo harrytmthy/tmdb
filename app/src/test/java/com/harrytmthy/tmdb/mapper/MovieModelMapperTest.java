@@ -1,8 +1,8 @@
 package com.harrytmthy.tmdb.mapper;
 
 import com.harrytmthy.domain.movie.model.PagedMovie;
-import com.harrytmthy.tmdb.movie.mapper.MovieModelMapper;
-import com.harrytmthy.tmdb.movie.model.MovieState;
+import com.harrytmthy.tmdb.movie.list.model.MovieState;
+import com.harrytmthy.tmdb.movie.list.mapper.MovieModelMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -37,12 +36,6 @@ public class MovieModelMapperTest {
 
         assertEquals(pagedMovie.getPage(), data.getPage());
         assertEquals(pagedMovie.getTotalPages(), data.getTotalPages());
-    }
-
-    @Test
-    public void toLoadingState_inMovieModelMapper_mapsCorrectly() {
-        MovieState state = movieModelMapper.toLoadingState();
-        assertTrue(state instanceof MovieState.Loading);
     }
 
 }

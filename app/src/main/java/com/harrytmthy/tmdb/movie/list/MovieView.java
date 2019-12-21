@@ -1,8 +1,8 @@
-package com.harrytmthy.tmdb.movie;
+package com.harrytmthy.tmdb.movie.list;
 
 import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.base.BaseView;
-import com.harrytmthy.tmdb.movie.model.MovieState;
+import com.harrytmthy.tmdb.movie.list.model.MovieState;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -11,8 +11,6 @@ import com.harrytmthy.tmdb.movie.model.MovieState;
  * @param <S> State type.
  */
 public interface MovieView<S extends MovieState> extends BaseView<S> {
-
-    void renderLoadingState();
 
     void renderDataState(PagedMovie pagedMovie);
 

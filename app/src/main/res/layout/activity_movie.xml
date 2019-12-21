@@ -4,13 +4,13 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="com.harrytmthy.tmdb.movie.model.MovieState" />
+        <import type="com.harrytmthy.tmdb.movie.list.model.MovieState" />
         <variable
             name="presenter"
-            type="com.harrytmthy.tmdb.movie.MoviePresenter" />
+            type="com.harrytmthy.tmdb.movie.list.MoviePresenter" />
         <variable
             name="adapter"
-            type="com.harrytmthy.tmdb.movie.MovieAdapter" />
+            type="com.harrytmthy.tmdb.movie.list.MovieAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
             android:background="@android:color/white"
             android:visibility="@{!(presenter.state instanceof MovieState.Loading) ? View.VISIBLE : View.GONE}"
             app:onRefreshListener="@{() -> presenter.refresh()}"
-            app:refreshing="@{presenter.state instanceof MovieState.Loading}"
+            app:refreshing="@{presenter.state instanceof MovieState.Refreshing}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
                     android:overScrollMode="never"
                     app:adapter="@{adapter}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:onScroll="@{() -> presenter.nextPage()}"
+                    app:onScroll="@{() -> presenter.loadNextPage()}"
                     app:spanCount="2" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,7 +1,7 @@
 package com.harrytmthy.tmdb;
 
-import com.harrytmthy.tmdb.authentication.LoginActivity;
-import com.harrytmthy.tmdb.common.AppConstants;
+import com.harrytmthy.tmdb.constants.AppConstants;
+import com.harrytmthy.tmdb.movie.list.MovieActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, MovieActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }, AppConstants.SPLASH_SCREEN_DURATION);

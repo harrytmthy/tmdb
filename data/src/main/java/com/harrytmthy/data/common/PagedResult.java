@@ -17,8 +17,6 @@ public class PagedResult<R> {
 
     private int page;
 
-    @SerializedName("total_results") private int totalResults;
-
     @SerializedName("total_pages") private int totalPages;
 
     private List<R> results;

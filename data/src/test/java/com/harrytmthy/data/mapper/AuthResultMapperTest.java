@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -37,6 +38,12 @@ public class AuthResultMapperTest {
     }
 
     @Test
+    public void mapTokenResult_returnsNull() {
+        Auth auth = authResultMapper.map((TokenResult) null);
+        assertNull(auth);
+    }
+
+    @Test
     public void mapSessionResult_worksCorrectly() {
         SessionResult result = new SessionResult();
         result.setSessionId("y73ruqoejrq3r");
@@ -44,6 +51,12 @@ public class AuthResultMapperTest {
         Auth auth = authResultMapper.map(result);
 
         assertEquals(result.getSessionId(), auth.getSessionId());
+    }
+
+    @Test
+    public void mapSessionResult_returnsNull() {
+        Auth auth = authResultMapper.map((SessionResult) null);
+        assertNull(auth);
     }
 
 }

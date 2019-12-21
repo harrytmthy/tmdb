@@ -5,10 +5,22 @@
     <string name="activity_login_button_register">Register</string>
     <string name="activity_login_hint_password">Password</string>
     <string name="activity_login_hint_username">Username</string>
+    <string name="activity_movie_title_favorite">Favorite Movies</string>
     <string name="activity_movie_title_popular">Popular Movies</string>
     <string name="activity_movie_title_top_rated">Top Rated Movies</string>
+    <string name="activity_movie_detail_button_favorite_off">Mark as Favorite</string>
+    <string name="activity_movie_detail_button_favorite_on">Unmark as Favorite</string>
+    <string name="activity_movie_detail_error">Something went wrong.</string>
+    <string name="activity_movie_detail_field_average_vote">%1$.1f/10.0</string>
+    <string name="activity_movie_detail_field_duration">%1$dmin</string>
+    <string name="activity_movie_detail_field_popularity">%1$.0f</string>
+    <string name="activity_movie_detail_title">Movie Detail</string>
+    <string name="activity_movie_detail_trailers">Trailers:</string>
 
     <string name="menu_movie_favorite">Favorite</string>
     <string name="menu_movie_popular">Popular</string>
     <string name="menu_movie_top_rated">Top Rated</string>
+
+    <string translatable="false" name="key_movie_id">movieId</string>
+    <string translatable="false" name="key_session_id">sessionId</string>
 </resources>

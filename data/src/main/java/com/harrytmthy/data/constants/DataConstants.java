@@ -1,4 +1,4 @@
-package com.harrytmthy.data.common;
+package com.harrytmthy.data.constants;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -10,6 +10,8 @@ public final class DataConstants {
 
     public static final String API_MOVIE_TOP_RATED = "/3/movie/top_rated";
 
+    public static final String API_MOVIE_DETAIL = "/3/movie/{movie_id}";
+
     public static final String API_NEW_TOKEN = "/3/authentication/token/new";
 
     public static final String API_NEW_SESSION = "/3/authentication/session/new";
@@ -18,9 +20,15 @@ public final class DataConstants {
 
     public static final String DEFAULT_API_KEY = "e4a4544757cebf9ce932d484e99bdefd";
 
+    public static final String DEFAULT_APPEND_RESPONSE = "account_states,videos";
+
     public static final String PARAM_API_KEY = "api_key";
 
-    public static final String PARAM_API_PAGE = "page";
+    public static final String PARAM_MOVIE_ID = "movie_id";
+
+    public static final String PARAM_PAGE = "page";
+
+    public static final String PARAM_APPEND_RESPONSE = "append_to_response";
 
     public static final String URL_API = "https://api.themoviedb.org";
 

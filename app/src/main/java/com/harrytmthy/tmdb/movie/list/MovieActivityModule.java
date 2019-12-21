@@ -1,8 +1,8 @@
-package com.harrytmthy.tmdb.movie;
+package com.harrytmthy.tmdb.movie.list;
 
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
 import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
-import com.harrytmthy.tmdb.movie.mapper.MovieModelMapper;
+import com.harrytmthy.tmdb.movie.list.mapper.MovieModelMapper;
 
 import dagger.Module;
 import dagger.Provides;

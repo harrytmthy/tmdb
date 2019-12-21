@@ -7,7 +7,6 @@ import com.harrytmthy.domain.authentication.model.Auth;
 import com.harrytmthy.tmdb.authentication.LoginPresenter;
 import com.harrytmthy.tmdb.authentication.LoginView;
 import com.harrytmthy.tmdb.authentication.mapper.AuthModelMapper;
-import com.harrytmthy.tmdb.authentication.model.AuthAction;
 import com.harrytmthy.tmdb.authentication.model.AuthState;
 
 import org.junit.After;
@@ -53,19 +52,6 @@ public class LoginPresenterTest {
     @After
     public void tearDown() {
         loginPresenter.unbind();
-    }
-
-    @Test
-    public void authState_inLoginPresenter_isRendered() {
-        AuthAction action = new AuthAction.Initial();
-        AuthState state = new AuthState.Loading();
-
-        given(authModelMapper.toLoadingState()).willReturn(state);
-
-        loginPresenter.doAction(action);
-
-        verify(authModelMapper).toLoadingState();
-        verify(loginView).render(state);
     }
 
     @Test

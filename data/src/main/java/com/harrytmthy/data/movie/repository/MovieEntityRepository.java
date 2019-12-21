@@ -1,7 +1,9 @@
 package com.harrytmthy.data.movie.repository;
 
+import com.harrytmthy.data.constants.DataConstants;
 import com.harrytmthy.data.movie.mapper.MovieResultMapper;
 import com.harrytmthy.data.movie.source.MovieEntityDataFactory;
+import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.domain.movie.repository.MovieRepository;
 
@@ -26,6 +28,13 @@ public class MovieEntityRepository implements MovieRepository {
         MovieResultMapper movieResultMapper) {
         this.movieEntityDataFactory = movieEntityDataFactory;
         this.movieResultMapper = movieResultMapper;
+    }
+
+    @Override
+    public Observable<MovieDetail> getDetails(int movieId) {
+        return movieEntityDataFactory.createService()
+            .getDetails(movieId, DataConstants.DEFAULT_APPEND_RESPONSE)
+            .map(movieResultMapper::map);
     }
 
     @Override

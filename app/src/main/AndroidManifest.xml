@@ -25,9 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".movie.MovieActivity"
+        <activity android:name=".movie.list.MovieActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".authentication.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".movie.detail.MovieDetailActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -25,11 +25,11 @@ import io.reactivex.ObservableTransformer;
 @ActivityScope
 public class LoginPresenter extends BasePresenter<AuthAction, AuthState> {
 
-    private final CreateSession createSessionUseCase;
+    private final CreateSession createSession;
 
-    private final CreateToken createTokenUseCase;
+    private final CreateToken createToken;
 
-    private final ValidateToken validateTokenUseCase;
+    private final ValidateToken validateToken;
 
     private final AuthModelMapper authModelMapper;
 
@@ -39,28 +39,28 @@ public class LoginPresenter extends BasePresenter<AuthAction, AuthState> {
 
     @Inject public LoginPresenter(CreateSession createSession, CreateToken createToken,
         ValidateToken validateToken, AuthModelMapper authModelMapper) {
-        this.createSessionUseCase = createSession;
-        this.createTokenUseCase = createToken;
-        this.validateTokenUseCase = validateToken;
+        this.createSession = createSession;
+        this.createToken = createToken;
+        this.validateToken = validateToken;
         this.authModelMapper = authModelMapper;
     }
 
     @Override
     protected ObservableTransformer<AuthAction, AuthState> dispatch() {
-        return authActionObservable -> authActionObservable.switchMap( authAction -> {
-            if(authAction instanceof AuthAction.Login) {
-                return handle(createTokenUseCase.execute(null)).flatMap(authState -> {
+        return actionObservable -> actionObservable.switchMap( action -> {
+            if(action instanceof AuthAction.Login) {
+                return handle(createToken.execute(null)).flatMap(authState -> {
                     final TokenParam tokenParam = new TokenParam();
                     tokenParam.setUsername(username);
                     tokenParam.setPassword(password);
                     tokenParam.setRequestToken(((AuthState.Data) authState).data.getRequestToken());
-                    return handle(validateTokenUseCase.execute(tokenParam)).flatMap( state -> {
+                    return handle(validateToken.execute(tokenParam)).flatMap( state -> {
                         final SessionParam param = new SessionParam();
                         param.setRequestToken(((AuthState.Data) state).data.getRequestToken());
-                        return handle(createSessionUseCase.execute(param));
+                        return handle(createSession.execute(param));
                     });
                 }).startWith(new AuthState.Loading());
-            } else return Observable.just(this.authModelMapper.toLoadingState());
+            } else return Observable.just(new AuthState.Loading());
         });
     }
 
