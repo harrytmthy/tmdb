@@ -10,7 +10,6 @@ import com.harrytmthy.tmdb.movie.detail.model.MovieDetailState;
 
 import javax.inject.Inject;
 
-import androidx.databinding.ObservableField;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 
@@ -25,14 +24,11 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
 
     private final MovieDetailModelMapper movieDetailModelMapper;
 
-    public final ObservableField<MovieDetail> movieDetail;
-
     @Inject
     public MovieDetailPresenter(GetDetails getDetails,
         MovieDetailModelMapper movieDetailModelMapper) {
         this.getDetailsUseCase = getDetails;
         this.movieDetailModelMapper = movieDetailModelMapper;
-        this.movieDetail = new ObservableField<>();
     }
 
     @Override

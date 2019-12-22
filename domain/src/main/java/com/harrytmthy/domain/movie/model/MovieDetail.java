@@ -30,4 +30,6 @@ public class MovieDetail {
 
     private List<String> genres;
 
+    private List<Video> videos;
+
 }

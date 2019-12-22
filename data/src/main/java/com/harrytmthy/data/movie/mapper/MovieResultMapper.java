@@ -6,9 +6,11 @@ import com.harrytmthy.domain.movie.model.Genre;
 import com.harrytmthy.domain.movie.model.Movie;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.domain.movie.model.PagedMovie;
+import com.harrytmthy.domain.movie.model.Video;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -54,6 +56,9 @@ public class MovieResultMapper {
             genres.add(genre.getName());
         }
         movieDetail.setGenres(genres);
+        for(Map.Entry<Object, List<Video>> entry : movieResult.getVideos().entrySet()) {
+            movieDetail.setVideos(entry.getValue());
+        }
         return movieDetail;
     }
 

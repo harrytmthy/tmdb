@@ -5,6 +5,7 @@ import com.harrytmthy.tmdb.common.OnItemClickListener;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -17,7 +18,7 @@ public abstract class BaseAdapter<D, VH extends RecyclerView.ViewHolder> extends
 
     protected List<D> items;
 
-    protected OnItemClickListener<D> listener;
+    @Setter protected OnItemClickListener<D> listener;
 
     public void setItems(List<D> items) {
         this.items.clear();
@@ -30,7 +31,7 @@ public abstract class BaseAdapter<D, VH extends RecyclerView.ViewHolder> extends
         this.notifyItemRangeInserted(items.size(), items.size());
     }
 
-    public D getItem(int position) {
+    protected D getItem(int position) {
         return items.get(position);
     }
 

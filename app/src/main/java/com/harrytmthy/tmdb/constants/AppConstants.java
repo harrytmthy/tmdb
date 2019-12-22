@@ -10,6 +10,6 @@ public final class AppConstants {
 
     public static final long SPLASH_SCREEN_DURATION = 2000L;
 
-    public static final long SWIPE_REFRESH_DELAY = 100L;
+    public static final String URL_YOUTUBE = "http://www.youtube.com/watch?v=";
 
 }

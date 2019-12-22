@@ -7,6 +7,12 @@
         <import type="com.harrytmthy.tmdb.movie.detail.model.MovieDetailState" />
         <import type="com.harrytmthy.tmdb.util.FormattingUtil" />
         <variable
+            name="movieDetail"
+            type="com.harrytmthy.domain.movie.model.MovieDetail" />
+        <variable
+            name="adapter"
+            type="com.harrytmthy.tmdb.movie.detail.MovieDetailAdapter" />
+        <variable
             name="presenter"
             type="com.harrytmthy.tmdb.movie.detail.MovieDetailPresenter" />
     </data>
@@ -35,7 +41,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:padding="16dp"
-                    android:text="@{presenter.movieDetail.originalTitle}"
+                    android:text="@{movieDetail.originalTitle}"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     app:autoSizeTextType="uniform"
@@ -50,7 +56,7 @@
                     android:layout_margin="16dp"
                     android:adjustViewBounds="true"
                     android:scaleType="center"
-                    app:loadFromPath="@{presenter.movieDetail.posterPath}"
+                    app:loadFromPath="@{movieDetail.posterPath}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title"
                     app:layout_constraintEnd_toStartOf="@id/detailLayout" />
@@ -73,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:maxLines="1"
-                        android:text="@{presenter.movieDetail.releaseDate}"
+                        android:text="@{movieDetail.releaseDate}"
                         android:textSize="22sp"
                         app:autoSizeTextType="uniform"
                         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:maxLines="1"
-                        android:text="@{@string/activity_movie_detail_field_duration(presenter.movieDetail.runtime)}"
+                        android:text="@{@string/activity_movie_detail_field_duration(movieDetail.runtime)}"
                         android:textSize="16sp"
                         android:textStyle="italic"
                         app:autoSizeTextType="uniform"
@@ -100,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:maxLines="1"
-                        android:text="@{@string/activity_movie_detail_field_average_vote(presenter.movieDetail.voteAverage)}"
+                        android:text="@{@string/activity_movie_detail_field_average_vote(movieDetail.voteAverage)}"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:autoSizeTextType="uniform"
@@ -126,7 +132,7 @@
                         android:layout_marginStart="4dp"
                         android:gravity="center_vertical"
                         android:maxLines="1"
-                        android:text="@{@string/activity_movie_detail_field_popularity(presenter.movieDetail.popularity)}"
+                        android:text="@{@string/activity_movie_detail_field_popularity(movieDetail.popularity)}"
                         android:textSize="14sp"
                         app:autoSizeTextType="uniform"
                         app:layout_constraintStart_toEndOf="@id/icon"
@@ -138,8 +144,10 @@
                         android:id="@+id/genres"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
-                        android:text="@{FormattingUtil.formatGenre(presenter.movieDetail.genres)}"
+                        android:maxLines="4"
+                        android:text="@{FormattingUtil.formatGenre(movieDetail.genres)}"
                         android:textSize="14sp"
                         android:textStyle="italic"
                         app:layout_constraintStart_toStartOf="parent"
@@ -166,8 +174,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_margin="16dp"
-                    android:text="@{presenter.movieDetail.overview}"
-                    android:textSize="12sp"
+                    android:text="@{movieDetail.overview}"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detailLayout"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -192,6 +200,20 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:overScrollMode="never"
+                    app:adapter="@{adapter}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/trailersTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,10 @@ package com.harrytmthy.data.movie.model;
 import com.google.gson.annotations.SerializedName;
 
 import com.harrytmthy.domain.movie.model.Genre;
+import com.harrytmthy.domain.movie.model.Video;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +38,6 @@ public class MovieResult {
 
     @SerializedName("genres") private List<Genre> genres;
 
-    //@SerializedName("videos") private Video videos;
+    @SerializedName("videos") private Map<Object, List<Video>> videos;
 
 }

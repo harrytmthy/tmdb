@@ -3,10 +3,14 @@ package com.harrytmthy.tmdb.movie.detail;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseActivity;
+import com.harrytmthy.tmdb.constants.AppConstants;
 import com.harrytmthy.tmdb.databinding.ActivityMovieDetailBinding;
 import com.harrytmthy.tmdb.movie.detail.model.MovieDetailAction;
 import com.harrytmthy.tmdb.movie.detail.model.MovieDetailState;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -22,6 +26,10 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Inject MovieDetailPresenter presenter;
 
+    @Inject MovieDetailAdapter adapter;
+
+    private ActivityMovieDetailBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +42,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
             return;
         }
 
-        ActivityMovieDetailBinding binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(this,
             R.layout.activity_movie_detail);
         binding.setPresenter(presenter);
 
@@ -45,6 +53,14 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    private void startYoutubeActivity(String key) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key)));
+        } catch (ActivityNotFoundException ex) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(AppConstants.URL_YOUTUBE + key)));
+        }
+    }
+
     @Override
     public void render(MovieDetailState state) {
         if(state instanceof MovieDetailState.Data) renderDataState(((MovieDetailState.Data) state).data);
@@ -53,8 +69,10 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Override
     public void renderDataState(MovieDetail movieDetail) {
-        presenter.movieDetail.set(movieDetail);
-        //TODO: Add Trailers
+        binding.setMovieDetail(movieDetail);
+        binding.setAdapter(adapter);
+        adapter.setListener(movie -> startYoutubeActivity(movie.getKey()));
+        adapter.setItems(movieDetail.getVideos());
     }
 
     @Override

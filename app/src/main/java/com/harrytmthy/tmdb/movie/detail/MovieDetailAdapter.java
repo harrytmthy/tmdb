@@ -1,9 +1,9 @@
-package com.harrytmthy.tmdb.movie.list;
+package com.harrytmthy.tmdb.movie.detail;
 
-import com.harrytmthy.domain.movie.model.Movie;
+import com.harrytmthy.domain.movie.model.Video;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseAdapter;
-import com.harrytmthy.tmdb.databinding.ItemMovieBinding;
+import com.harrytmthy.tmdb.databinding.ItemMovieDetailBinding;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
- * @version MovieAdapter, v 0.1 2019-12-14 19:57 by Harry Timothy
+ * @version MovieDetailAdapter, v 0.1 2019-12-21 23:46 by Harry Timothy
  */
-public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
+public class MovieDetailAdapter extends BaseAdapter<Video, MovieDetailAdapter.ViewHolder> {
 
     @Inject
-    public MovieAdapter() {
+    public MovieDetailAdapter() {
         this.items = new ArrayList<>();
     }
 
@@ -31,27 +31,27 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-            R.layout.item_movie, parent, false));
+            R.layout.item_movie_detail, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(getItem(position));
-        holder.binding.poster.setOnClickListener(v -> listener.onItemClick(getItem(position)));
+        holder.binding.getRoot().setOnClickListener(v -> listener.onItemClick(getItem(position)));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ItemMovieBinding binding;
+        ItemMovieDetailBinding binding;
 
-        ViewHolder(ItemMovieBinding binding) {
+        ViewHolder(ItemMovieDetailBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        void bind(Movie movie) {
-            if(movie == null) return;
-            binding.setMovie(movie);
+        void bind(Video video) {
+            if(video == null) return;
+            binding.setVideo(video);
         }
 
     }
