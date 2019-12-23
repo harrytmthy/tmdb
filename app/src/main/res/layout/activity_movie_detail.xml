@@ -154,15 +154,14 @@
                         app:layout_constraintTop_toBottomOf="@id/icon"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatToggleButton
-                        android:id="@+id/markFavorite"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/markFavoriteButton"
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/colorAccent"
+                        android:text="@{presenter.favorite ? @string/activity_movie_detail_button_favorite_on : @string/activity_movie_detail_button_favorite_off}"
                         android:textColor="@android:color/white"
-                        android:textOff="@string/activity_movie_detail_button_favorite_off"
-                        android:textOn="@string/activity_movie_detail_button_favorite_on"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/genres" />
 

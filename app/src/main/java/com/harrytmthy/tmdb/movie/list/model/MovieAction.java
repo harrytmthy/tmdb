@@ -8,14 +8,14 @@ import com.harrytmthy.tmdb.base.BaseAction;
  */
 public interface MovieAction extends BaseAction {
 
-    final class Initial implements MovieAction {}
-
-    final class Refresh implements MovieAction {}
-
     final class LoadPopularMovies implements MovieAction {}
 
     final class LoadTopRatedMovies implements MovieAction {}
 
+    final class LoadFavoriteMovies implements MovieAction {}
+
     final class LoadNextPage implements MovieAction {}
+
+    final class Refresh implements MovieAction {}
 
 }

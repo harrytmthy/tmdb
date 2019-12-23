@@ -14,8 +14,8 @@ public interface AuthRepository {
 
     Observable<Auth> createToken();
 
-    Observable<Auth> validateToken(TokenParam params);
+    Observable<Auth> validateToken(TokenParam param);
 
-    Observable<Auth> createSession(SessionParam params);
+    Observable<Auth> createSession(SessionParam param);
 
 }

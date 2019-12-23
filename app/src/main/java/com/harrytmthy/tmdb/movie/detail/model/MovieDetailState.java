@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.movie.detail.model;
 
+import com.harrytmthy.domain.account.model.Status;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.base.BaseState;
 
@@ -17,6 +18,16 @@ public interface MovieDetailState extends BaseState {
 
         public Data(MovieDetail data) {
             this.data = data;
+        }
+
+    }
+
+    final class Favorite implements MovieDetailState {
+
+        public Status status;
+
+        public Favorite(Status status) {
+            this.status = status;
         }
 
     }

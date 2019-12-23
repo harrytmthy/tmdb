@@ -6,6 +6,8 @@ package com.harrytmthy.tmdb.constants;
  */
 public final class AppConstants {
 
+    public static final int ACTIVITY_LOGIN_REQUEST_CODE = 101;
+
     public static final long ROTATION_DURATION = 1100L;
 
     public static final long SPLASH_SCREEN_DURATION = 2000L;

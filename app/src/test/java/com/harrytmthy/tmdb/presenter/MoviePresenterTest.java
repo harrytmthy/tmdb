@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.presenter;
 
+import com.harrytmthy.domain.account.interactor.GetFavoriteMovies;
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
 import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
 import com.harrytmthy.domain.movie.model.PagedMovie;
@@ -40,11 +41,14 @@ public class MoviePresenterTest {
 
     @Mock private GetTopRatedMovies getTopRatedMovies;
 
+    @Mock private GetFavoriteMovies getFavoriteMovies;
+
     @Mock private MovieModelMapper movieModelMapper;
 
     @Before
     public void setUp() {
-        moviePresenter = new MoviePresenter(getPopularMovies, getTopRatedMovies, movieModelMapper);
+        moviePresenter = new MoviePresenter(getPopularMovies, getTopRatedMovies, getFavoriteMovies,
+            movieModelMapper);
         moviePresenter.bind(movieView);
     }
 
@@ -66,8 +70,12 @@ public class MoviePresenterTest {
         action = new MovieAction.LoadTopRatedMovies();
         moviePresenter.doAction(action);
 
+        action = new MovieAction.LoadFavoriteMovies();
+        moviePresenter.doAction(action);
+
         verify(getPopularMovies).execute(1);
         verify(getTopRatedMovies).execute(1);
+        verify(getFavoriteMovies).execute(1);
     }
 
     @Test

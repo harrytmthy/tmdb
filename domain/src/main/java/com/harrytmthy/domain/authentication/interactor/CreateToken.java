@@ -25,7 +25,7 @@ public class CreateToken extends BaseUseCase<Auth, Void> {
     }
 
     @Override
-    public Observable<Auth> buildUseCaseObservable(Void params) {
+    public Observable<Auth> buildUseCaseObservable(Void param) {
         return authRepository.createToken();
     }
 

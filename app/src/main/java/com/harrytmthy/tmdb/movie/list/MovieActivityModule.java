@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.movie.list;
 
+import com.harrytmthy.domain.account.interactor.GetFavoriteMovies;
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
 import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
 import com.harrytmthy.tmdb.movie.list.mapper.MovieModelMapper;
@@ -16,9 +17,10 @@ public abstract class MovieActivityModule {
 
     @Provides
     static MoviePresenter provideMoviePresenter(GetPopularMovies getPopularMovies,
-        GetTopRatedMovies getTopRatedMovies,
+        GetTopRatedMovies getTopRatedMovies, GetFavoriteMovies getFavoriteMovies,
         MovieModelMapper movieModelMapper) {
-        return new MoviePresenter(getPopularMovies, getTopRatedMovies, movieModelMapper);
+        return new MoviePresenter(getPopularMovies, getTopRatedMovies, getFavoriteMovies,
+            movieModelMapper);
     }
 
 }

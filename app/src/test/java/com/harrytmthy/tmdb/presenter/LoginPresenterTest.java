@@ -7,6 +7,7 @@ import com.harrytmthy.domain.authentication.model.Auth;
 import com.harrytmthy.tmdb.authentication.LoginPresenter;
 import com.harrytmthy.tmdb.authentication.LoginView;
 import com.harrytmthy.tmdb.authentication.mapper.AuthModelMapper;
+import com.harrytmthy.tmdb.authentication.model.AuthAction;
 import com.harrytmthy.tmdb.authentication.model.AuthState;
 
 import org.junit.After;
@@ -57,6 +58,10 @@ public class LoginPresenterTest {
     @Test
     public void useCase_inLoginPresenter_isExecuted() {
         Auth auth = new Auth();
+
+        loginPresenter.doAction(new AuthAction.Initial());
+
+        verifyZeroInteractions(createToken);
 
         given(createToken.execute(null)).willReturn(Observable.just(auth));
 

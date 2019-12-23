@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.movie.detail;
 
+import com.harrytmthy.domain.account.model.Status;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseActivity;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 /**
@@ -35,19 +37,19 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        int movieId = getIntent().getIntExtra(getString(R.string.key_movie_id), -1);
+        final int movieId = getIntent().getIntExtra(getString(R.string.key_movie_id), -1);
         if(movieId < 0 || getSupportActionBar() == null) {
             Toast.makeText(this, getString(R.string.activity_movie_detail_error), Toast.LENGTH_SHORT).show();
             onBackPressed();
             return;
-        }
+        } else presenter.setMovieId(movieId);
 
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_movie_detail);
         binding.setPresenter(presenter);
 
         presenter.bind(this);
-        presenter.doAction(new MovieDetailAction.LoadDetails(movieId));
+        presenter.doAction(new MovieDetailAction.LoadDetails());
         getSupportActionBar().setTitle(getString(R.string.activity_movie_detail_title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -64,11 +66,14 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
     @Override
     public void render(MovieDetailState state) {
         if(state instanceof MovieDetailState.Data) renderDataState(((MovieDetailState.Data) state).data);
-        if(state instanceof MovieDetailState.Error) renderErrorState(((MovieDetailState.Error) state).error);
+        else if(state instanceof MovieDetailState.Error) renderErrorState(((MovieDetailState.Error) state).error);
+        else if(state instanceof MovieDetailState.Favorite) renderFavoriteState(((MovieDetailState.Favorite) state).status);
     }
 
     @Override
     public void renderDataState(MovieDetail movieDetail) {
+        presenter.setFavorite(false);
+        binding.markFavoriteButton.setOnClickListener(v -> presenter.doAction(new MovieDetailAction.MarkFavorite()));
         binding.setMovieDetail(movieDetail);
         binding.setAdapter(adapter);
         adapter.setListener(movie -> startYoutubeActivity(movie.getKey()));
@@ -77,7 +82,21 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Override
     public void renderErrorState(Throwable error) {
+        handleError(error);
+    }
 
+    @Override
+    public void renderFavoriteState(Status status) {
+        presenter.setFavorite(true);
+        Toast.makeText(this, status.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.ACTIVITY_LOGIN_REQUEST_CODE) {
+            if(resultCode == RESULT_OK) presenter.doAction(new MovieDetailAction.MarkFavorite());
+        }
     }
 
 }

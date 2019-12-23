@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.presenter;
 
+import com.harrytmthy.domain.account.interactor.MarkFavorite;
 import com.harrytmthy.domain.movie.interactor.GetDetails;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.movie.detail.MovieDetailPresenter;
@@ -33,11 +34,14 @@ public class MovieDetailPresenterTest {
 
     @Mock private GetDetails getDetails;
 
+    @Mock private MarkFavorite markFavorite;
+
     @Mock private MovieDetailModelMapper movieDetailModelMapper;
 
     @Before
     public void setUp() {
-        movieDetailPresenter = new MovieDetailPresenter(getDetails, movieDetailModelMapper);
+        movieDetailPresenter = new MovieDetailPresenter(getDetails, markFavorite,
+            movieDetailModelMapper);
         movieDetailPresenter.bind(movieDetailView);
     }
 
@@ -54,6 +58,8 @@ public class MovieDetailPresenterTest {
         given(getDetails.execute(1)).willReturn(Observable.just(movieDetail));
 
         movieDetailPresenter.doAction(action);
+
+        movieDetailPresenter.doAction(new MovieDetailAction.MarkFavorite());
 
         verify(getDetails).execute(1);
     }

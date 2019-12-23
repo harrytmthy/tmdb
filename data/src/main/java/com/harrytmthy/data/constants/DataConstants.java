@@ -6,6 +6,10 @@ package com.harrytmthy.data.constants;
  */
 public final class DataConstants {
 
+    public static final String API_MARK_FAVORITE = "/3/account/{account_id}/favorite";
+
+    public static final String API_MOVIE_FAVORITE = "/3/account/{account_id}/favorite/movies";
+
     public static final String API_MOVIE_POPULAR = "/3/movie/popular";
 
     public static final String API_MOVIE_TOP_RATED = "/3/movie/top_rated";
@@ -22,13 +26,17 @@ public final class DataConstants {
 
     public static final String DEFAULT_APPEND_RESPONSE = "account_states,videos";
 
+    public static final String DEFAULT_MEDIA_TYPE = "movie";
+
     public static final String PARAM_API_KEY = "api_key";
+
+    public static final String PARAM_APPEND_RESPONSE = "append_to_response";
 
     public static final String PARAM_MOVIE_ID = "movie_id";
 
     public static final String PARAM_PAGE = "page";
 
-    public static final String PARAM_APPEND_RESPONSE = "append_to_response";
+    public static final String PARAM_SESSION_ID = "session_id";
 
     public static final String URL_API = "https://api.themoviedb.org";
 

@@ -50,7 +50,6 @@ public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
 
     public void unbind() {
         view = null;
-        if(compositeDisposable == null) return;
         compositeDisposable.dispose();
     }
 

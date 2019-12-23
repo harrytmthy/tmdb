@@ -3,6 +3,7 @@ package com.harrytmthy.tmdb.movie.list;
 import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseActivity;
+import com.harrytmthy.tmdb.constants.AppConstants;
 import com.harrytmthy.tmdb.databinding.ActivityMovieBinding;
 import com.harrytmthy.tmdb.movie.detail.MovieDetailActivity;
 import com.harrytmthy.tmdb.movie.list.model.MovieAction;
@@ -15,10 +16,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 /**
@@ -74,7 +75,16 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
 
     @Override
     public void renderErrorState(Throwable error) {
-        Toast.makeText(this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        handleError(error);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.ACTIVITY_LOGIN_REQUEST_CODE) {
+            if(resultCode == RESULT_OK) presenter.doAction(new MovieAction.Refresh());
+            else dispatchAction(new MovieAction.LoadPopularMovies());
+        }
     }
 
     @Override
@@ -90,7 +100,7 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
         final int itemId = item.getItemId();
         if(itemId == R.id.popular) dispatchAction(new MovieAction.LoadPopularMovies());
         else if(itemId == R.id.topRated) dispatchAction(new MovieAction.LoadTopRatedMovies());
-        else return super.onOptionsItemSelected(item);
+        else dispatchAction(new MovieAction.LoadFavoriteMovies());
         return true;
     }
 

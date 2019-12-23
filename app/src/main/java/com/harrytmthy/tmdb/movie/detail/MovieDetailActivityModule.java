@@ -1,5 +1,6 @@
-package com.harrytmthy.tmdb.movie.detail.model;
+package com.harrytmthy.tmdb.movie.detail;
 
+import com.harrytmthy.domain.account.interactor.MarkFavorite;
 import com.harrytmthy.domain.movie.interactor.GetDetails;
 import com.harrytmthy.tmdb.movie.detail.MovieDetailPresenter;
 import com.harrytmthy.tmdb.movie.detail.mapper.MovieDetailModelMapper;
@@ -16,8 +17,8 @@ public abstract class MovieDetailActivityModule {
 
     @Provides
     static MovieDetailPresenter provideMoviePresenter(GetDetails getDetails,
-        MovieDetailModelMapper movieDetailModelMapper) {
-        return new MovieDetailPresenter(getDetails, movieDetailModelMapper);
+        MarkFavorite markFavorite, MovieDetailModelMapper movieDetailModelMapper) {
+        return new MovieDetailPresenter(getDetails, markFavorite, movieDetailModelMapper);
     }
 
 }

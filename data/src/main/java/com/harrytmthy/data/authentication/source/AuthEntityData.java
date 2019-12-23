@@ -23,10 +23,10 @@ public interface AuthEntityData {
 
     @POST(DataConstants.API_VALIDATE_TOKEN)
     @Headers("Content-Type: application/json")
-    Observable<TokenResult> validateToken(@Body TokenParam params);
+    Observable<TokenResult> validateToken(@Body TokenParam param);
 
     @POST(DataConstants.API_NEW_SESSION)
     @Headers("Content-Type: application/json")
-    Observable<SessionResult> createSession(@Body SessionParam params);
+    Observable<SessionResult> createSession(@Body SessionParam param);
 
 }

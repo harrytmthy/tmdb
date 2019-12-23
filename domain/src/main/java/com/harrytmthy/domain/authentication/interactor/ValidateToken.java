@@ -26,8 +26,8 @@ public class ValidateToken extends BaseUseCase<Auth, TokenParam> {
     }
 
     @Override
-    public Observable<Auth> buildUseCaseObservable(TokenParam tokenParam) {
-        return authRepository.validateToken(tokenParam);
+    public Observable<Auth> buildUseCaseObservable(TokenParam param) {
+        return authRepository.validateToken(param);
     }
 
 }

@@ -4,7 +4,7 @@ import com.harrytmthy.tmdb.authentication.LoginActivity;
 import com.harrytmthy.tmdb.authentication.LoginActivityModule;
 import com.harrytmthy.tmdb.di.ActivityScope;
 import com.harrytmthy.tmdb.movie.detail.MovieDetailActivity;
-import com.harrytmthy.tmdb.movie.detail.model.MovieDetailActivityModule;
+import com.harrytmthy.tmdb.movie.detail.MovieDetailActivityModule;
 import com.harrytmthy.tmdb.movie.list.MovieActivity;
 import com.harrytmthy.tmdb.movie.list.MovieActivityModule;
 

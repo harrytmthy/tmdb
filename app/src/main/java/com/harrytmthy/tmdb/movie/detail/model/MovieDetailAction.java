@@ -8,17 +8,7 @@ import com.harrytmthy.tmdb.base.BaseAction;
  */
 public interface MovieDetailAction extends BaseAction {
 
-    final class Initial implements MovieDetailAction {}
-
-    final class LoadDetails implements MovieDetailAction {
-
-        public final int movieId;
-
-        public LoadDetails(int movieId) {
-            this.movieId = movieId;
-        }
-
-    }
+    final class LoadDetails implements MovieDetailAction {}
 
     final class MarkFavorite implements MovieDetailAction {}
 

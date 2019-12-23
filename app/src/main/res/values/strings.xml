@@ -17,6 +17,9 @@
     <string name="activity_movie_detail_title">Movie Detail</string>
     <string name="activity_movie_detail_trailers">Trailers:</string>
 
+    <string name="error_http_unauthorized">Please login to continue.</string>
+    <string name="error_http_not_found">Something went wrong at our end.</string>
+
     <string name="menu_movie_favorite">Favorite</string>
     <string name="menu_movie_popular">Popular</string>
     <string name="menu_movie_top_rated">Top Rated</string>

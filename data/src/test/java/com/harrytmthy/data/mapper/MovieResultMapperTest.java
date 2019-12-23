@@ -6,6 +6,7 @@ import com.harrytmthy.data.movie.model.MovieResult;
 import com.harrytmthy.domain.movie.model.Genre;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.domain.movie.model.PagedMovie;
+import com.harrytmthy.domain.movie.model.Video;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,9 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -54,17 +57,24 @@ public class MovieResultMapperTest {
 
     @Test
     public void mapToMovieDetail_worksCorrectly() {
+        Video video = new Video();
+        video.setKey("key2ijeor3q");
+        List<Video> videos = new ArrayList<>();
+        videos.add(video);
+        Map<Object, List<Video>> videoMap = new HashMap<>();
+        videoMap.put(new Object(), videos);
         Genre genre = new Genre();
         genre.setName("Test123");
         List<Genre> genres = new ArrayList<>();
         genres.add(genre);
         MovieResult movieResult = new MovieResult();
         movieResult.setGenres(genres);
+        movieResult.setVideos(videoMap);
 
         MovieDetail movieDetail = movieResultMapper.map(movieResult);
-        List<String> genreTexts = movieDetail.getGenres();
 
-        assertEquals(genre.getName(), genreTexts.get(0));
+        assertEquals(genre.getName(), movieDetail.getGenres().get(0));
+        assertEquals(video.getKey(), movieDetail.getVideos().get(0).getKey());
     }
 
     @Test

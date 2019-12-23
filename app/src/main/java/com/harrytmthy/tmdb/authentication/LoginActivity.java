@@ -6,12 +6,10 @@ import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.authentication.model.AuthState;
 import com.harrytmthy.tmdb.base.BaseActivity;
 import com.harrytmthy.tmdb.databinding.ActivityLoginBinding;
-import com.harrytmthy.tmdb.movie.list.MovieActivity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -50,13 +48,13 @@ public class LoginActivity extends BaseActivity implements LoginView<AuthState> 
             .edit()
             .putString(getString(R.string.key_session_id), auth.getSessionId())
             .apply();
-        startActivity(new Intent(this, MovieActivity.class)
-            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
     public void renderErrorState(Throwable error) {
-        Toast.makeText(this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        handleError(error);
     }
 
     @Override

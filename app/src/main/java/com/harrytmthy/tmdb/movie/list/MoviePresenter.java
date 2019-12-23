@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.movie.list;
 
+import com.harrytmthy.domain.account.interactor.GetFavoriteMovies;
 import com.harrytmthy.domain.base.BaseUseCase;
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
 import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
@@ -28,6 +29,8 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
 
     private final GetTopRatedMovies getTopRatedMovies;
 
+    private final GetFavoriteMovies getFavoriteMovies;
+
     private final MovieModelMapper movieModelMapper;
 
     @VisibleForTesting public BaseUseCase<PagedMovie, Integer> lastUseCase;
@@ -38,9 +41,10 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
 
     @Inject
     public MoviePresenter(GetPopularMovies getPopularMovies, GetTopRatedMovies getTopRatedMovies,
-        MovieModelMapper movieModelMapper) {
+        GetFavoriteMovies getFavoriteMovies, MovieModelMapper movieModelMapper) {
         this.getPopularMovies = getPopularMovies;
         this.getTopRatedMovies = getTopRatedMovies;
+        this.getFavoriteMovies = getFavoriteMovies;
         this.movieModelMapper = movieModelMapper;
         canLoadNextPage = false;
         currentPage = 1;
@@ -53,11 +57,11 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
                 return handle(getPopularMovies, 1).startWith(new MovieState.Loading());
             } else if (action instanceof MovieAction.LoadTopRatedMovies) {
                 return handle(getTopRatedMovies, 1).startWith(new MovieState.Loading());
+            } else if (action instanceof MovieAction.LoadFavoriteMovies) {
+                return handle(getFavoriteMovies, 1).startWith(new MovieState.Loading());
             } else if (action instanceof MovieAction.LoadNextPage) {
                 return handle(lastUseCase, currentPage + 1);
-            } else if (action instanceof MovieAction.Refresh) {
-                return handle(lastUseCase, 1);
-            } else return Observable.just(new MovieState.Loading());
+            } else return handle(lastUseCase, 1); // Refresh
         });
     }
 
