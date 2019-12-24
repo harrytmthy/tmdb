@@ -32,4 +32,6 @@ public class MovieDetail {
 
     private List<Video> videos;
 
+    private boolean favorite;
+
 }

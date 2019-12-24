@@ -13,9 +13,9 @@ import com.harrytmthy.tmdb.movie.detail.model.MovieDetailState;
 
 import javax.inject.Inject;
 
+import androidx.databinding.ObservableBoolean;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
-import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -31,9 +31,9 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
 
     private final MovieDetailModelMapper movieDetailModelMapper;
 
-    @Getter @Setter private boolean favorite;
-
     @Setter private int movieId;
+
+    public final ObservableBoolean favorite;
 
     @Inject
     public MovieDetailPresenter(GetDetails getDetails, MarkFavorite markFavorite,
@@ -41,6 +41,7 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
         this.getDetails = getDetails;
         this.markFavorite = markFavorite;
         this.movieDetailModelMapper = movieDetailModelMapper;
+        this.favorite = new ObservableBoolean();
     }
 
     @Override
@@ -49,13 +50,15 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
             if (action instanceof MovieDetailAction.LoadDetails) {
                 return handle(getDetails.execute(movieId))
                     .startWith(new MovieDetailState.Loading());
-            } else { //Mark Favorite
-                FavoriteParam param = new FavoriteParam();
-                param.setFavorite(!favorite);
-                param.setMediaId(movieId);
-                param.setMediaType(DataConstants.DEFAULT_MEDIA_TYPE);
+            } else if (action instanceof MovieDetailAction.MarkFavorite) {
+                FavoriteParam param = new FavoriteParam(true, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
                 return markFavorite.execute(param)
                     .map(this.movieDetailModelMapper::mapToFavoriteState)
+                    .onErrorReturn(MovieDetailState.Error::new);
+            } else { // Unfavorite
+                FavoriteParam param = new FavoriteParam(false, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
+                return markFavorite.execute(param)
+                    .map(this.movieDetailModelMapper::mapToUnfavoriteState)
                     .onErrorReturn(MovieDetailState.Error::new);
             }
         });
@@ -64,6 +67,11 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
     private Observable<MovieDetailState> handle(Observable<MovieDetail> useCase) {
         return useCase.map(this.movieDetailModelMapper::mapToDataState)
             .onErrorReturn(MovieDetailState.Error::new);
+    }
+
+    public void markFavorite() {
+        if(favorite.get()) doAction(new MovieDetailAction.Unfavorite());
+        else doAction(new MovieDetailAction.MarkFavorite());
     }
 
 }

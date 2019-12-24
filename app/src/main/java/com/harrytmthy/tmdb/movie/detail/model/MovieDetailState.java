@@ -32,6 +32,16 @@ public interface MovieDetailState extends BaseState {
 
     }
 
+    final class Unfavorite implements MovieDetailState {
+
+        public Status status;
+
+        public Unfavorite(Status status) {
+            this.status = status;
+        }
+
+    }
+
     final class Error implements MovieDetailState {
 
         public Throwable error;

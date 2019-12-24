@@ -2,6 +2,9 @@ package com.harrytmthy.data.authentication.source;
 
 import com.harrytmthy.data.base.BaseEntityDataFactory;
 
+import android.content.Context;
+
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -10,6 +13,10 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class AuthEntityDataFactory extends BaseEntityDataFactory {
+
+    @Inject public AuthEntityDataFactory(Context context) {
+        super(context);
+    }
 
     public AuthEntityData createService() {
         return retrofit.create(AuthEntityData.class);

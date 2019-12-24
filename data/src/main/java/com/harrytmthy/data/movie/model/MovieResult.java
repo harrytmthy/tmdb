@@ -2,6 +2,7 @@ package com.harrytmthy.data.movie.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import com.harrytmthy.domain.movie.model.AccountState;
 import com.harrytmthy.domain.movie.model.Genre;
 import com.harrytmthy.domain.movie.model.Video;
 
@@ -39,5 +40,7 @@ public class MovieResult {
     @SerializedName("genres") private List<Genre> genres;
 
     @SerializedName("videos") private Map<Object, List<Video>> videos;
+
+    @SerializedName("account_states") private AccountState accountState;
 
 }

@@ -56,9 +56,11 @@ public class MovieResultMapper {
             genres.add(genre.getName());
         }
         movieDetail.setGenres(genres);
+        if(movieResult.getVideos() == null) return movieDetail;
         for(Map.Entry<Object, List<Video>> entry : movieResult.getVideos().entrySet()) {
             movieDetail.setVideos(entry.getValue());
         }
+        movieDetail.setFavorite(movieResult.getAccountState().isFavorite());
         return movieDetail;
     }
 

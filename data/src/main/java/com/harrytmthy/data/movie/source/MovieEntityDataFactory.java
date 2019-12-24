@@ -2,6 +2,9 @@ package com.harrytmthy.data.movie.source;
 
 import com.harrytmthy.data.base.BaseEntityDataFactory;
 
+import android.content.Context;
+
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -10,6 +13,10 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class MovieEntityDataFactory extends BaseEntityDataFactory {
+
+    @Inject public MovieEntityDataFactory(Context context) {
+        super(context);
+    }
 
     public MovieEntityData createService() {
         return retrofit.create(MovieEntityData.class);

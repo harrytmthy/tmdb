@@ -12,4 +12,6 @@ public interface MovieDetailAction extends BaseAction {
 
     final class MarkFavorite implements MovieDetailAction {}
 
+    final class Unfavorite implements MovieDetailAction {}
+
 }

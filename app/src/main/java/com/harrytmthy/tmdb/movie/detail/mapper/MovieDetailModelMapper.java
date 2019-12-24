@@ -26,4 +26,8 @@ public class MovieDetailModelMapper implements BaseMapper<MovieDetail, MovieDeta
         return new MovieDetailState.Favorite(status);
     }
 
+    public MovieDetailState mapToUnfavoriteState(Status status) {
+        return new MovieDetailState.Unfavorite(status);
+    }
+
 }

@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@color/colorAccent"
-                        android:text="@{presenter.favorite ? @string/activity_movie_detail_button_favorite_on : @string/activity_movie_detail_button_favorite_off}"
+                        android:text="@{presenter.favorite ? @string/activity_movie_detail_button_unfavorite : @string/activity_movie_detail_button_favorite}"
                         android:textColor="@android:color/white"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/genres" />

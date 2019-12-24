@@ -40,8 +40,8 @@ public abstract class ApplicationModule {
 
     @Binds abstract PostExecutionThread providePostExecutionThread(UIThread uiThread);
 
-    @Provides static MovieEntityDataFactory provideMovieEntityDataFactory() {
-        return new MovieEntityDataFactory();
+    @Provides static MovieEntityDataFactory provideMovieEntityDataFactory(Context context) {
+        return new MovieEntityDataFactory(context);
     }
 
     @Provides static MovieEntityRepository provideMovieEntityRepository(
@@ -53,8 +53,8 @@ public abstract class ApplicationModule {
     @Binds
     abstract MovieRepository provideMovieRepository(MovieEntityRepository movieEntityRepository);
 
-    @Provides static AuthEntityDataFactory provideAuthEntityDataFactory() {
-        return new AuthEntityDataFactory();
+    @Provides static AuthEntityDataFactory provideAuthEntityDataFactory(Context context) {
+        return new AuthEntityDataFactory(context);
     }
 
     @Provides static AuthEntityRepository provideAuthEntityRepository(

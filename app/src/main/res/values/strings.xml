@@ -8,12 +8,14 @@
     <string name="activity_movie_title_favorite">Favorite Movies</string>
     <string name="activity_movie_title_popular">Popular Movies</string>
     <string name="activity_movie_title_top_rated">Top Rated Movies</string>
-    <string name="activity_movie_detail_button_favorite_off">Mark as Favorite</string>
-    <string name="activity_movie_detail_button_favorite_on">Unmark as Favorite</string>
+    <string name="activity_movie_detail_button_favorite">Mark as Favorite</string>
+    <string name="activity_movie_detail_button_unfavorite">Unfavorite</string>
     <string name="activity_movie_detail_error">Something went wrong.</string>
     <string name="activity_movie_detail_field_average_vote">%1$.1f/10.0</string>
     <string name="activity_movie_detail_field_duration">%1$dmin</string>
     <string name="activity_movie_detail_field_popularity">%1$.0f</string>
+    <string name="activity_movie_detail_mark_favorite_success">Mark favorite success</string>
+    <string name="activity_movie_detail_unmark_favorite_success">Unmark favorite success</string>
     <string name="activity_movie_detail_title">Movie Detail</string>
     <string name="activity_movie_detail_trailers">Trailers:</string>
 

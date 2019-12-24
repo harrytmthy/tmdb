@@ -15,6 +15,8 @@ public interface MovieDetailView <S extends MovieDetailState> extends BaseView<S
 
     void renderErrorState(Throwable error);
 
-    void renderFavoriteState(Status status);
+    void renderFavoriteState();
+
+    void renderUnfavoriteState();
 
 }

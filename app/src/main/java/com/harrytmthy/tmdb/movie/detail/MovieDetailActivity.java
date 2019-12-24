@@ -1,6 +1,5 @@
 package com.harrytmthy.tmdb.movie.detail;
 
-import com.harrytmthy.domain.account.model.Status;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseActivity;
@@ -67,13 +66,14 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
     public void render(MovieDetailState state) {
         if(state instanceof MovieDetailState.Data) renderDataState(((MovieDetailState.Data) state).data);
         else if(state instanceof MovieDetailState.Error) renderErrorState(((MovieDetailState.Error) state).error);
-        else if(state instanceof MovieDetailState.Favorite) renderFavoriteState(((MovieDetailState.Favorite) state).status);
+        else if(state instanceof MovieDetailState.Favorite) renderFavoriteState();
+        else if(state instanceof MovieDetailState.Unfavorite) renderUnfavoriteState();
     }
 
     @Override
     public void renderDataState(MovieDetail movieDetail) {
-        presenter.setFavorite(false);
-        binding.markFavoriteButton.setOnClickListener(v -> presenter.doAction(new MovieDetailAction.MarkFavorite()));
+        presenter.favorite.set(movieDetail.isFavorite());
+        binding.markFavoriteButton.setOnClickListener(v -> presenter.markFavorite());
         binding.setMovieDetail(movieDetail);
         binding.setAdapter(adapter);
         adapter.setListener(movie -> startYoutubeActivity(movie.getKey()));
@@ -86,9 +86,19 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
     }
 
     @Override
-    public void renderFavoriteState(Status status) {
-        presenter.setFavorite(true);
-        Toast.makeText(this, status.getMessage(), Toast.LENGTH_SHORT).show();
+    public void renderFavoriteState() {
+        presenter.favorite.set(true);
+        Toast.makeText(this,
+            getString(R.string.activity_movie_detail_mark_favorite_success),
+            Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void renderUnfavoriteState() {
+        presenter.favorite.set(false);
+        Toast.makeText(this,
+            getString(R.string.activity_movie_detail_unmark_favorite_success),
+            Toast.LENGTH_SHORT).show();
     }
 
     @Override
