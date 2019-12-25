@@ -19,7 +19,7 @@ public class MovieEntityDataFactory extends BaseEntityDataFactory {
     }
 
     public MovieEntityData createService() {
-        return retrofit.create(MovieEntityData.class);
+        return getClient().create(MovieEntityData.class);
     }
 
 }

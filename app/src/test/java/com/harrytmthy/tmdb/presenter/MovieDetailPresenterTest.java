@@ -53,13 +53,20 @@ public class MovieDetailPresenterTest {
     @Test
     public void useCase_inMovieDetailPresenter_isExecuted() {
         MovieDetail movieDetail = new MovieDetail();
-        MovieDetailAction action = new MovieDetailAction.LoadDetails(1);
+        MovieDetailAction action = new MovieDetailAction.LoadDetails();
+        movieDetailPresenter.setMovieId(1);
 
         given(getDetails.execute(1)).willReturn(Observable.just(movieDetail));
 
         movieDetailPresenter.doAction(action);
 
-        movieDetailPresenter.doAction(new MovieDetailAction.MarkFavorite());
+        movieDetailPresenter.favorite.set(true);
+
+        movieDetailPresenter.markFavorite();
+
+        movieDetailPresenter.favorite.set(false);
+
+        movieDetailPresenter.markFavorite();
 
         verify(getDetails).execute(1);
     }

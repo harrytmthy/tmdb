@@ -51,14 +51,14 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
                 return handle(getDetails.execute(movieId))
                     .startWith(new MovieDetailState.Loading());
             } else if (action instanceof MovieDetailAction.MarkFavorite) {
-                FavoriteParam param = new FavoriteParam(true, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
+                final FavoriteParam param = new FavoriteParam(true, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
                 return markFavorite.execute(param)
-                    .map(this.movieDetailModelMapper::mapToFavoriteState)
+                    .map(status -> this.movieDetailModelMapper.mapToFavoriteState())
                     .onErrorReturn(MovieDetailState.Error::new);
             } else { // Unfavorite
-                FavoriteParam param = new FavoriteParam(false, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
+                final FavoriteParam param = new FavoriteParam(false, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
                 return markFavorite.execute(param)
-                    .map(this.movieDetailModelMapper::mapToUnfavoriteState)
+                    .map(status -> this.movieDetailModelMapper.mapToUnfavoriteState())
                     .onErrorReturn(MovieDetailState.Error::new);
             }
         });

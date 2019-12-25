@@ -13,7 +13,7 @@ public interface AuthState extends BaseState {
 
     final class Data implements AuthState {
 
-        public Auth data;
+        public final Auth data;
 
         public Data(Auth data) {
             this.data = data;
@@ -23,7 +23,7 @@ public interface AuthState extends BaseState {
 
     final class Error implements AuthState {
 
-        public Throwable error;
+        public final Throwable error;
 
         public Error(Throwable error) {
             this.error = error;

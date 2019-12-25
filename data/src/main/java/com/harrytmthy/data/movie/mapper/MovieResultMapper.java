@@ -26,11 +26,11 @@ public class MovieResultMapper {
 
     public PagedMovie map(PagedResult<MovieResult> pagedMovieResult) {
         if(pagedMovieResult == null) return null;
-        PagedMovie pagedMovie = new PagedMovie();
+        final PagedMovie pagedMovie = new PagedMovie();
         pagedMovie.setPage(pagedMovieResult.getPage());
         pagedMovie.setTotalPages(pagedMovieResult.getTotalPages());
-        List<Movie> movies = new ArrayList<>();
-        for(MovieResult movieResult : pagedMovieResult.getResults()) {
+        final List<Movie> movies = new ArrayList<>();
+        for(final MovieResult movieResult : pagedMovieResult.getResults()) {
             Movie movie = new Movie();
             movie.setId(movieResult.getId());
             movie.setPosterPath(movieResult.getPosterPath());
@@ -42,7 +42,7 @@ public class MovieResultMapper {
 
     public MovieDetail map(MovieResult movieResult) {
         if(movieResult == null) return null;
-        MovieDetail movieDetail = new MovieDetail();
+        final MovieDetail movieDetail = new MovieDetail();
         movieDetail.setId(movieResult.getId());
         movieDetail.setOriginalTitle(movieResult.getOriginalTitle());
         movieDetail.setOverview(movieResult.getOverview());
@@ -51,15 +51,16 @@ public class MovieResultMapper {
         movieDetail.setPopularity(movieResult.getPopularity());
         movieDetail.setVoteAverage(movieResult.getVoteAverage());
         movieDetail.setPosterPath(movieResult.getPosterPath());
-        List<String> genres = new ArrayList<>();
-        for(Genre genre : movieResult.getGenres()) {
+        final List<String> genres = new ArrayList<>();
+        for(final Genre genre : movieResult.getGenres()) {
             genres.add(genre.getName());
         }
         movieDetail.setGenres(genres);
         if(movieResult.getVideos() == null) return movieDetail;
-        for(Map.Entry<Object, List<Video>> entry : movieResult.getVideos().entrySet()) {
+        for(final Map.Entry<Object, List<Video>> entry : movieResult.getVideos().entrySet()) {
             movieDetail.setVideos(entry.getValue());
         }
+        if(movieResult.getAccountState() == null) return movieDetail;
         movieDetail.setFavorite(movieResult.getAccountState().isFavorite());
         return movieDetail;
     }

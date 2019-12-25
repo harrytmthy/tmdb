@@ -1,5 +1,6 @@
 package com.harrytmthy.tmdb.movie.list;
 
+import com.harrytmthy.domain.account.interactor.GetFavoriteMovies;
 import com.harrytmthy.domain.movie.model.PagedMovie;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.base.BaseActivity;
@@ -42,8 +43,8 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
         binding.setPresenter(presenter);
         binding.setAdapter(adapter);
 
-        adapter.setListener(movie -> startActivity(new Intent(this, MovieDetailActivity.class)
-        .putExtra(getString(R.string.key_movie_id), movie.getId())));
+        adapter.setListener(movie -> startActivityForResult(new Intent(this, MovieDetailActivity.class)
+        .putExtra(getString(R.string.key_movie_id), movie.getId()), AppConstants.ACTIVITY_MOVIE_DETAIL_REQUEST_CODE));
 
         presenter.bind(this);
         dispatchAction(new MovieAction.LoadPopularMovies());
@@ -84,6 +85,12 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
         if (requestCode == AppConstants.ACTIVITY_LOGIN_REQUEST_CODE) {
             if(resultCode == RESULT_OK) presenter.doAction(new MovieAction.Refresh());
             else dispatchAction(new MovieAction.LoadPopularMovies());
+        } else if(requestCode == AppConstants.ACTIVITY_MOVIE_DETAIL_REQUEST_CODE) {
+            if(presenter.getLastUseCase() instanceof GetFavoriteMovies && resultCode == RESULT_OK &&
+                data != null) {
+                final int movieId = data.getIntExtra(getString(R.string.key_movie_id), -1);
+                if(movieId != -1) adapter.removeMovieById(movieId);
+            }
         }
     }
 

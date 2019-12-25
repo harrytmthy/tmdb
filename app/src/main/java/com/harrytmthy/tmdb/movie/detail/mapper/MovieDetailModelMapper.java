@@ -1,6 +1,5 @@
 package com.harrytmthy.tmdb.movie.detail.mapper;
 
-import com.harrytmthy.domain.account.model.Status;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.base.BaseMapper;
 import com.harrytmthy.tmdb.di.ActivityScope;
@@ -22,12 +21,12 @@ public class MovieDetailModelMapper implements BaseMapper<MovieDetail, MovieDeta
         return new MovieDetailState.Data(type);
     }
 
-    public MovieDetailState mapToFavoriteState(Status status) {
-        return new MovieDetailState.Favorite(status);
+    public MovieDetailState mapToFavoriteState() {
+        return new MovieDetailState.Favorite();
     }
 
-    public MovieDetailState mapToUnfavoriteState(Status status) {
-        return new MovieDetailState.Unfavorite(status);
+    public MovieDetailState mapToUnfavoriteState() {
+        return new MovieDetailState.Unfavorite();
     }
 
 }

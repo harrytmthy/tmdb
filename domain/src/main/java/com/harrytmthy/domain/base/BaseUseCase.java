@@ -16,7 +16,7 @@ public abstract class BaseUseCase<T, Params> {
 
     private final PostExecutionThread postExecutionThread;
 
-    protected BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    public BaseUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         this.threadExecutor = threadExecutor;
         this.postExecutionThread = postExecutionThread;
     }

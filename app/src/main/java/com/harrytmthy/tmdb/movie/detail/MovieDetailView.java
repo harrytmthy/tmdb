@@ -1,6 +1,5 @@
 package com.harrytmthy.tmdb.movie.detail;
 
-import com.harrytmthy.domain.account.model.Status;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.tmdb.base.BaseView;
 import com.harrytmthy.tmdb.movie.detail.model.MovieDetailState;

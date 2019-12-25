@@ -6,7 +6,6 @@ import com.harrytmthy.data.account.repository.AccountEntityRepository;
 import com.harrytmthy.data.account.source.AccountEntityData;
 import com.harrytmthy.data.account.source.AccountEntityDataFactory;
 import com.harrytmthy.data.common.PagedResult;
-import com.harrytmthy.data.constants.DataConstants;
 import com.harrytmthy.data.movie.model.MovieResult;
 import com.harrytmthy.domain.account.model.FavoriteParam;
 
@@ -58,10 +57,7 @@ public class AccountEntityRepositoryTest {
     @Test
     public void markFavorite_inAccountEntityRepository_isCalled() {
         StatusResult result = new StatusResult();
-        FavoriteParam param = new FavoriteParam();
-        param.setFavorite(true);
-        param.setMediaId(123);
-        param.setMediaType(DataConstants.DEFAULT_MEDIA_TYPE);
+        FavoriteParam param = new FavoriteParam(true, 123, "test");
 
         given(accountEntityData.markFavorite(param)).willReturn(Observable.just(result));
         accountEntityRepository.markFavorite(param);

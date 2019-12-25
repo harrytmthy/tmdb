@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import androidx.annotation.VisibleForTesting;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -33,7 +34,7 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
 
     private final MovieModelMapper movieModelMapper;
 
-    @VisibleForTesting public BaseUseCase<PagedMovie, Integer> lastUseCase;
+    @Getter @VisibleForTesting public BaseUseCase<PagedMovie, Integer> lastUseCase;
 
     @Setter @VisibleForTesting public boolean canLoadNextPage;
 

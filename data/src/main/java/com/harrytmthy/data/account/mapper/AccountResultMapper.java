@@ -24,7 +24,7 @@ public class AccountResultMapper {
 
     public Status map(StatusResult statusResult) {
         if(statusResult == null) return null;
-        Status status = new Status();
+        final Status status = new Status();
         status.setCode(statusResult.getStatusCode());
         status.setMessage(statusResult.getStatusMessge());
         return status;
@@ -32,12 +32,12 @@ public class AccountResultMapper {
 
     public PagedMovie map(PagedResult<MovieResult> pagedMovieResult) {
         if(pagedMovieResult == null) return null;
-        PagedMovie pagedMovie = new PagedMovie();
+        final PagedMovie pagedMovie = new PagedMovie();
         pagedMovie.setPage(pagedMovieResult.getPage());
         pagedMovie.setTotalPages(pagedMovieResult.getTotalPages());
-        List<Movie> movies = new ArrayList<>();
-        for(MovieResult movieResult : pagedMovieResult.getResults()) {
-            Movie movie = new Movie();
+        final List<Movie> movies = new ArrayList<>();
+        for(final MovieResult movieResult : pagedMovieResult.getResults()) {
+            final Movie movie = new Movie();
             movie.setId(movieResult.getId());
             movie.setPosterPath(movieResult.getPosterPath());
             movies.add(movie);

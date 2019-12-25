@@ -29,7 +29,7 @@ public final class ViewUtil {
     @BindingAdapter("animateRotation")
     public static void animateRotation(View view, boolean animate) {
         if(animate) {
-            ObjectAnimator animator = ObjectAnimator.ofFloat(view,
+            final ObjectAnimator animator = ObjectAnimator.ofFloat(view,
                 "rotation",
                 0f, 360f);
             animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -43,7 +43,7 @@ public final class ViewUtil {
 
     @BindingAdapter("loadFromPath")
     public static void loadFromPath(ImageView imageView, String path) {
-        boolean isPathNullOrEmpty = path == null || path.isEmpty();
+        final boolean isPathNullOrEmpty = path == null || path.isEmpty();
         Glide.with(imageView.getContext())
             .load(isPathNullOrEmpty ? R.drawable.ic_no_image : DataConstants.URL_IMAGE + path)
             .transition(DrawableTransitionOptions.withCrossFade())
@@ -55,22 +55,17 @@ public final class ViewUtil {
         recyclerView.setAdapter(adapter);
     }
 
-    @BindingAdapter("onTextChanged")
-    public static void textChangedListener(EditText editText, TextWatcher textWatcher) {
-        editText.addTextChangedListener(textWatcher);
-    }
-
     @BindingAdapter("onScroll")
     public static void onScroll(RecyclerView recyclerView, Runnable onScroll) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                LinearLayoutManager layoutManager =
+                final LinearLayoutManager layoutManager =
                     (LinearLayoutManager) recyclerView.getLayoutManager();
                 if(layoutManager == null) return;
-                int totalItemCount = layoutManager.getItemCount();
-                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                final int totalItemCount = layoutManager.getItemCount();
+                final int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                 if (totalItemCount == lastVisibleItemPosition + 1) {
                     onScroll.run();
                 }

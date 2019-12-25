@@ -27,6 +27,16 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
         this.items = new ArrayList<>();
     }
 
+    void removeMovieById(int movieId) {
+        for(int i = 0; i < items.size(); i++) {
+            if(items.get(i).getId() == movieId) {
+                items.remove(i);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,7 +52,7 @@ public class MovieAdapter extends BaseAdapter<Movie, MovieAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ItemMovieBinding binding;
+        final ItemMovieBinding binding;
 
         ViewHolder(ItemMovieBinding binding) {
             super(binding.getRoot());

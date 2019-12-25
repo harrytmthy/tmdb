@@ -17,6 +17,8 @@ import javax.inject.Inject;
 import androidx.annotation.VisibleForTesting;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -33,7 +35,7 @@ public class LoginPresenter extends BasePresenter<AuthAction, AuthState> {
 
     private final AuthModelMapper authModelMapper;
 
-    public String username;
+    @Getter @Setter private String username;
 
     @VisibleForTesting public String password;
 
@@ -50,11 +52,13 @@ public class LoginPresenter extends BasePresenter<AuthAction, AuthState> {
         return actionObservable -> actionObservable.switchMap( action -> {
             if(action instanceof AuthAction.Login) {
                 return handle(createToken.execute(null)).flatMap(authState -> {
+                    if(authState instanceof AuthState.Error) return Observable.just(authState);
                     final TokenParam tokenParam = new TokenParam();
                     tokenParam.setUsername(username);
                     tokenParam.setPassword(password);
                     tokenParam.setRequestToken(((AuthState.Data) authState).data.getRequestToken());
                     return handle(validateToken.execute(tokenParam)).flatMap( state -> {
+                        if(state instanceof AuthState.Error) return Observable.just(state);
                         final SessionParam param = new SessionParam();
                         param.setRequestToken(((AuthState.Data) state).data.getRequestToken());
                         return handle(createSession.execute(param));

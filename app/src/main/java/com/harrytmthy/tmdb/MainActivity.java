@@ -16,11 +16,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, MovieActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }, AppConstants.SPLASH_SCREEN_DURATION);
+        new Handler().postDelayed(() ->
+            startActivity(new Intent(this, MovieActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            ), AppConstants.SPLASH_SCREEN_DURATION);
     }
 
 }

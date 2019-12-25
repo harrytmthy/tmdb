@@ -6,11 +6,17 @@ import com.harrytmthy.data.authentication.source.AuthEntityDataFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
 import io.reactivex.Observable;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.given;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -21,9 +27,14 @@ public class AuthEntityDataFactoryTest {
 
     private AuthEntityDataFactory authEntityDataFactory;
 
+    @Mock private Context context;
+
+    @Mock private SharedPreferences sharedPreferences;
+
     @Before
     public void setUp() {
-        authEntityDataFactory = new AuthEntityDataFactory();
+        given(PreferenceManager.getDefaultSharedPreferences(context)).willReturn(sharedPreferences);
+        authEntityDataFactory = new AuthEntityDataFactory(context);
     }
 
     @Test

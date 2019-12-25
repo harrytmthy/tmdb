@@ -7,11 +7,17 @@ import com.harrytmthy.data.movie.source.MovieEntityDataFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
 import io.reactivex.Observable;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.BDDMockito.given;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -22,9 +28,14 @@ public class MovieEntityDataFactoryTest {
 
     private MovieEntityDataFactory movieEntityDataFactory;
 
+    @Mock private Context context;
+
+    @Mock private SharedPreferences sharedPreferences;
+
     @Before
     public void setUp() {
-        movieEntityDataFactory = new MovieEntityDataFactory();
+        given(PreferenceManager.getDefaultSharedPreferences(context)).willReturn(sharedPreferences);
+        movieEntityDataFactory = new MovieEntityDataFactory(context);
     }
 
     @Test

@@ -37,7 +37,7 @@ public class MarkFavoriteTest {
 
     @Test
     public void getPopularMovies_isCalled() {
-        FavoriteParam favoriteParam = new FavoriteParam();
+        FavoriteParam favoriteParam = new FavoriteParam(true, 123, "test");
         markFavorite.buildUseCaseObservable(favoriteParam);
         verify(accountRepository).markFavorite(favoriteParam);
         verifyZeroInteractions(threadExecutor);

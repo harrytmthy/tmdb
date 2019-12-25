@@ -8,6 +8,8 @@ public final class AppConstants {
 
     public static final int ACTIVITY_LOGIN_REQUEST_CODE = 101;
 
+    public static final int ACTIVITY_MOVIE_DETAIL_REQUEST_CODE = 102;
+
     public static final long ROTATION_DURATION = 1100L;
 
     public static final long SPLASH_SCREEN_DURATION = 2000L;

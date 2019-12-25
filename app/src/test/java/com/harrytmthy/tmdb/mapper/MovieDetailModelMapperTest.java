@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Harry Timothy (harry.timothy@dana.id)
@@ -36,6 +37,18 @@ public class MovieDetailModelMapperTest {
 
         assertEquals(movieDetail.getId(), data.getId());
         assertEquals(movieDetail.getOriginalTitle(), data.getOriginalTitle());
+    }
+
+    @Test
+    public void mapToFavoriteState_inMovieDetailModelMapper_mapsCorrectly() {
+        MovieDetailState state = movieDetailModelMapper.mapToFavoriteState();
+        assertTrue(state instanceof MovieDetailState.Favorite);
+    }
+
+    @Test
+    public void mapToUnfavoriteState_inMovieDetailModelMapper_mapsCorrectly() {
+        MovieDetailState state = movieDetailModelMapper.mapToUnfavoriteState();
+        assertTrue(state instanceof MovieDetailState.Unfavorite);
     }
 
 }

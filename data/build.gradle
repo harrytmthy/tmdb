@@ -1,15 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    def globalConfig = rootProject.extensions.getByName("ext")
 
+    compileSdkVersion globalConfig.androidCompileSdkVersion
+    buildToolsVersion globalConfig.androidBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion globalConfig.androidMinSdkVersion
+        targetSdkVersion globalConfig.androidTargetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -17,42 +16,31 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-
 }
 
 dependencies {
-    def okHttp3_version = '4.2.2'
-    def retrofit_version = '2.7.0'
-    def lombok_version = '1.18.10'
-
     implementation project(':domain')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.preference:preference:1.1.0'
-    implementation 'javax.inject:javax.inject:1'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:3.0.0'
-
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:okhttp:$okHttp3_version"
-    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttp3_version"
-
-    // RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
-
-    // Lombok
-    implementation "org.projectlombok:lombok:$lombok_version"
-    annotationProcessor "org.projectlombok:lombok:$lombok_version"
+    implementation dataDependencies.preference
+    implementation dataDependencies.javaxInject
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitConverter
+    implementation dataDependencies.okHttp
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxAndroid
+    implementation dataDependencies.rxAdapter
+    implementation dataDependencies.lombok
+    annotationProcessor dataDependencies.lombok
+    testImplementation dataDependencies.jUnit
+    testImplementation dataDependencies.mockito
 }

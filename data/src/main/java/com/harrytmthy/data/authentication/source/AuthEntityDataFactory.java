@@ -19,7 +19,7 @@ public class AuthEntityDataFactory extends BaseEntityDataFactory {
     }
 
     public AuthEntityData createService() {
-        return retrofit.create(AuthEntityData.class);
+        return getClient().create(AuthEntityData.class);
     }
 
 }

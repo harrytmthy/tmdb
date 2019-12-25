@@ -28,12 +28,16 @@ public class LoginActivity extends BaseActivity implements LoginView<AuthState> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ActivityLoginBinding binding = DataBindingUtil.setContentView(this,
+        final ActivityLoginBinding binding = DataBindingUtil.setContentView(this,
             R.layout.activity_login);
         binding.setLifecycleOwner(this);
         binding.setPresenter(presenter);
 
         presenter.bind(this);
+        if(getSupportActionBar() == null) return;
+        getSupportActionBar().setTitle(getString(R.string.activity_login_title));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override

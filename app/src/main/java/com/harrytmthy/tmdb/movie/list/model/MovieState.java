@@ -15,7 +15,7 @@ public interface MovieState extends BaseState {
 
     final class Data implements MovieState {
 
-        public PagedMovie data;
+        public final PagedMovie data;
 
         public Data(PagedMovie data) {
             this.data = data;
@@ -25,7 +25,7 @@ public interface MovieState extends BaseState {
 
     final class Error implements MovieState {
 
-        public Throwable error;
+        public final Throwable error;
 
         public Error(Throwable error) {
             this.error = error;

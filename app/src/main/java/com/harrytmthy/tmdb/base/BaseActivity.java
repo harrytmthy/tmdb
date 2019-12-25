@@ -16,13 +16,18 @@ import retrofit2.HttpException;
  */
 public abstract class BaseActivity extends DaggerAppCompatActivity {
 
-    protected void handleError(final Throwable error) {
+    protected void handleError(Throwable error) {
         if (error instanceof HttpException) {
             final int code = ((HttpException) error).code();
-            if (code == 401) {
-                Toast.makeText(this, getString(R.string.error_http_unauthorized), Toast.LENGTH_SHORT).show();
-                startActivityForResult(new Intent(this, LoginActivity.class),
-                    AppConstants.ACTIVITY_LOGIN_REQUEST_CODE);
+            if (code == 400) Toast.makeText(this, getString(R.string.error_http_empty_fields), Toast.LENGTH_SHORT).show();
+            else if (code == 401) {
+                if(this instanceof LoginActivity) {
+                    Toast.makeText(this, getString(R.string.error_http_invalid), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.error_http_unauthorized), Toast.LENGTH_SHORT).show();
+                    startActivityForResult(new Intent(this, LoginActivity.class),
+                        AppConstants.ACTIVITY_LOGIN_REQUEST_CODE);
+                }
             } else if(code == 404) Toast.makeText(this, getString(R.string.error_http_not_found), Toast.LENGTH_SHORT).show();
             else Toast.makeText(this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         } else Toast.makeText(this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();

@@ -18,14 +18,14 @@ public class AuthResultMapper {
 
     public Auth map(TokenResult tokenResult) {
         if(tokenResult == null) return null;
-        Auth auth = new Auth();
+        final Auth auth = new Auth();
         auth.setRequestToken(tokenResult.getRequestToken());
         return auth;
     }
 
     public Auth map(SessionResult sessionResult) {
         if(sessionResult == null) return null;
-        Auth auth = new Auth();
+        final Auth auth = new Auth();
         auth.setSessionId(sessionResult.getSessionId());
         return auth;
     }

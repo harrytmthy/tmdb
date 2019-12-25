@@ -3,6 +3,7 @@ package com.harrytmthy.data.mapper;
 import com.harrytmthy.data.common.PagedResult;
 import com.harrytmthy.data.movie.mapper.MovieResultMapper;
 import com.harrytmthy.data.movie.model.MovieResult;
+import com.harrytmthy.domain.movie.model.AccountState;
 import com.harrytmthy.domain.movie.model.Genre;
 import com.harrytmthy.domain.movie.model.MovieDetail;
 import com.harrytmthy.domain.movie.model.PagedMovie;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -43,6 +45,8 @@ public class MovieResultMapperTest {
         movieResults.add(movieResult);
         PagedResult<MovieResult> pagedResult = new PagedResult<>();
         pagedResult.setResults(movieResults);
+        pagedResult.setPage(1);
+        pagedResult.setTotalPages(12);
 
         PagedMovie pagedMovie = movieResultMapper.map(pagedResult);
 
@@ -67,11 +71,24 @@ public class MovieResultMapperTest {
         genre.setName("Test123");
         List<Genre> genres = new ArrayList<>();
         genres.add(genre);
+        AccountState accountState = new AccountState();
+        accountState.setFavorite(true);
         MovieResult movieResult = new MovieResult();
         movieResult.setGenres(genres);
-        movieResult.setVideos(videoMap);
 
         MovieDetail movieDetail = movieResultMapper.map(movieResult);
+
+        assertNull(movieDetail.getVideos());
+
+        movieResult.setVideos(videoMap);
+
+        movieDetail = movieResultMapper.map(movieResult);
+
+        assertFalse(movieDetail.isFavorite());
+
+        movieResult.setAccountState(accountState);
+
+        movieDetail = movieResultMapper.map(movieResult);
 
         assertEquals(genre.getName(), movieDetail.getGenres().get(0));
         assertEquals(video.getKey(), movieDetail.getVideos().get(0).getKey());

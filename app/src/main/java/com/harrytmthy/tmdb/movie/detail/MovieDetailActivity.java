@@ -99,6 +99,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
         Toast.makeText(this,
             getString(R.string.activity_movie_detail_unmark_favorite_success),
             Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK, getIntent());
     }
 
     @Override

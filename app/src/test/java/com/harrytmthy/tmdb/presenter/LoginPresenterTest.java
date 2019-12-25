@@ -84,4 +84,11 @@ public class LoginPresenterTest {
         assertEquals(password, loginPresenter.password);
     }
 
+    @Test
+    public void setUsername_inLoginPresenter_returnsCorrectValue() {
+        String username = "asdfasdf";
+        loginPresenter.setUsername(username);
+        assertEquals(username, loginPresenter.getUsername());
+    }
+
 }

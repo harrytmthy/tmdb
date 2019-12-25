@@ -42,7 +42,7 @@ public class MovieDetailAdapter extends BaseAdapter<Video, MovieDetailAdapter.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ItemMovieDetailBinding binding;
+        final ItemMovieDetailBinding binding;
 
         ViewHolder(ItemMovieDetailBinding binding) {
             super(binding.getRoot());

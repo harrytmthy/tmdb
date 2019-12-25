@@ -22,35 +22,41 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public abstract class BaseEntityDataFactory {
 
-    private final Interceptor interceptor;
-
-    protected final Retrofit retrofit;
+    private final Context context;
 
     public BaseEntityDataFactory(Context context) {
-        final String sessionId = PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(context.getString(R.string.key_session_id), "");
+        this.context = context;
+    }
 
-        interceptor = chain -> {
-            HttpUrl newUrl = chain.request()
+    private String getSessionId() {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(context.getString(R.string.key_session_id), "");
+    }
+
+    private Interceptor getInterceptor() {
+        return chain -> {
+            final HttpUrl newUrl = chain.request()
                 .url().newBuilder()
                 .addQueryParameter(DataConstants.PARAM_API_KEY, DataConstants.DEFAULT_API_KEY)
-                .addQueryParameter(DataConstants.PARAM_SESSION_ID, sessionId)
+                .addQueryParameter(DataConstants.PARAM_SESSION_ID, getSessionId())
                 .build();
-            Request newRequest = chain.request().newBuilder().url(newUrl).build();
+            final Request newRequest = chain.request().newBuilder().url(newUrl).build();
             return chain.proceed(newRequest);
         };
-
-        retrofit = new Retrofit.Builder().client(getOkHttpClient())
-            .baseUrl(DataConstants.URL_API)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-            .build();
     }
 
     private OkHttpClient getOkHttpClient() {
         return new OkHttpClient()
             .newBuilder()
-            .addInterceptor(interceptor)
+            .addInterceptor(getInterceptor())
+            .build();
+    }
+
+    protected Retrofit getClient() {
+        return new Retrofit.Builder().client(getOkHttpClient())
+            .baseUrl(DataConstants.URL_API)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
             .build();
     }
 

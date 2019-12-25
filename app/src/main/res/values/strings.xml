@@ -5,6 +5,7 @@
     <string name="activity_login_button_register">Register</string>
     <string name="activity_login_hint_password">Password</string>
     <string name="activity_login_hint_username">Username</string>
+    <string name="activity_login_title">Login</string>
     <string name="activity_movie_title_favorite">Favorite Movies</string>
     <string name="activity_movie_title_popular">Popular Movies</string>
     <string name="activity_movie_title_top_rated">Top Rated Movies</string>
@@ -19,6 +20,8 @@
     <string name="activity_movie_detail_title">Movie Detail</string>
     <string name="activity_movie_detail_trailers">Trailers:</string>
 
+    <string name="error_http_empty_fields">You must provide a username and password.</string>
+    <string name="error_http_invalid">Invalid username and/or password</string>
     <string name="error_http_unauthorized">Please login to continue.</string>
     <string name="error_http_not_found">Something went wrong at our end.</string>
 
