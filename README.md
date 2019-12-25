@@ -26,7 +26,8 @@ This project aims to create an app for demo purpose, not to implement every feat
 
 ## Architecture
 ![architecture](https://drive.google.com/uc?export=view&id=1d5TGoJaYXxTrSTY1aCYmeLooXGw6Y0Vl)
-&nbsp;
+
+
 The project is separated into three different modules: *Data*, *Domain*, and *App (Presentation)* to match Clean Architecture design. MVI acts as a micro (module level) architecture which affects only Presentation layer. The purpose is to simplify both inputs and outputs between Presenter and the view contract, and to establish a reactive - unidirectional flow. Reducer layer in MVI is not implemented as there is no need to modify the downstream data.
 
 ## Methodology
