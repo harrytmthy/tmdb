@@ -7,10 +7,13 @@
         <import type="com.harrytmthy.tmdb.movie.list.model.MovieState" />
         <variable
             name="presenter"
-            type="com.harrytmthy.tmdb.movie.list.MoviePresenter" />
+            type="com.harrytmthy.tmdb.movie.list.MovieContract.Presenter" />
         <variable
             name="adapter"
             type="com.harrytmthy.tmdb.movie.list.MovieAdapter" />
+        <variable
+            name="state"
+            type="MovieState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,9 +25,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@android:color/white"
-            android:visibility="@{!(presenter.state instanceof MovieState.Loading) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{!(state instanceof MovieState.Loading) ? View.VISIBLE : View.GONE}"
             app:onRefreshListener="@{() -> presenter.refresh()}"
-            app:refreshing="@{presenter.state instanceof MovieState.Refreshing}"
+            app:refreshing="@{state instanceof MovieState.Refreshing}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +55,7 @@
             android:id="@+id/loadingIcon"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:visibility="@{presenter.state instanceof MovieState.Loading ? View.VISIBLE : View.GONE}"
+            android:visibility="@{state instanceof MovieState.Loading ? View.VISIBLE : View.GONE}"
             app:animateRotation="@{true}"
             app:srcCompat="@drawable/ic_loading"
             app:tint="?attr/colorControlNormal"

@@ -23,9 +23,9 @@ import androidx.databinding.DataBindingUtil;
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version MovieDetailActivity, v 0.1 2019-12-20 10:45 by Harry Timothy
  */
-public class MovieDetailActivity extends BaseActivity implements MovieDetailView<MovieDetailState> {
+public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.View {
 
-    @Inject MovieDetailPresenter presenter;
+    @Inject MovieDetailContract.Presenter presenter;
 
     @Inject MovieDetailAdapter adapter;
 
@@ -64,6 +64,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Override
     public void render(MovieDetailState state) {
+        binding.setState(state);
         if(state instanceof MovieDetailState.Data) renderDataState(((MovieDetailState.Data) state).data);
         else if(state instanceof MovieDetailState.Error) renderErrorState(((MovieDetailState.Error) state).error);
         else if(state instanceof MovieDetailState.Favorite) renderFavoriteState();
@@ -72,8 +73,8 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Override
     public void renderDataState(MovieDetail movieDetail) {
-        presenter.favorite.set(movieDetail.isFavorite());
-        binding.markFavoriteButton.setOnClickListener(v -> presenter.markFavorite());
+        binding.setFavorite(movieDetail.isFavorite());
+        binding.markFavoriteButton.setOnClickListener(v -> presenter.markFavorite(!binding.getFavorite()));
         binding.setMovieDetail(movieDetail);
         binding.setAdapter(adapter);
         adapter.setListener(movie -> startYoutubeActivity(movie.getKey()));
@@ -87,7 +88,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Override
     public void renderFavoriteState() {
-        presenter.favorite.set(true);
+        binding.setFavorite(true);
         Toast.makeText(this,
             getString(R.string.activity_movie_detail_mark_favorite_success),
             Toast.LENGTH_SHORT).show();
@@ -95,7 +96,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailView
 
     @Override
     public void renderUnfavoriteState() {
-        presenter.favorite.set(false);
+        binding.setFavorite(false);
         Toast.makeText(this,
             getString(R.string.activity_movie_detail_unmark_favorite_success),
             Toast.LENGTH_SHORT).show();

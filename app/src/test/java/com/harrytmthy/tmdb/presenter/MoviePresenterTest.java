@@ -4,11 +4,10 @@ import com.harrytmthy.domain.account.interactor.GetFavoriteMovies;
 import com.harrytmthy.domain.movie.interactor.GetPopularMovies;
 import com.harrytmthy.domain.movie.interactor.GetTopRatedMovies;
 import com.harrytmthy.domain.movie.model.PagedMovie;
+import com.harrytmthy.tmdb.movie.list.MovieContract;
 import com.harrytmthy.tmdb.movie.list.MoviePresenter;
-import com.harrytmthy.tmdb.movie.list.MovieView;
 import com.harrytmthy.tmdb.movie.list.mapper.MovieModelMapper;
 import com.harrytmthy.tmdb.movie.list.model.MovieAction;
-import com.harrytmthy.tmdb.movie.list.model.MovieState;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +34,7 @@ public class MoviePresenterTest {
 
     private MoviePresenter moviePresenter;
 
-    @Mock private MovieView<MovieState> movieView;
+    @Mock private MovieContract.View movieView;
 
     @Mock private GetPopularMovies getPopularMovies;
 

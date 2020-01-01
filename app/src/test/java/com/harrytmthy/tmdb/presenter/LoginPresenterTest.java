@@ -5,10 +5,9 @@ import com.harrytmthy.domain.authentication.interactor.CreateToken;
 import com.harrytmthy.domain.authentication.interactor.ValidateToken;
 import com.harrytmthy.domain.authentication.model.Auth;
 import com.harrytmthy.tmdb.authentication.LoginPresenter;
-import com.harrytmthy.tmdb.authentication.LoginView;
 import com.harrytmthy.tmdb.authentication.mapper.AuthModelMapper;
 import com.harrytmthy.tmdb.authentication.model.AuthAction;
-import com.harrytmthy.tmdb.authentication.model.AuthState;
+import com.harrytmthy.tmdb.authentication.model.LoginContract;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,7 +32,7 @@ public class LoginPresenterTest {
 
     private LoginPresenter loginPresenter;
 
-    @Mock private LoginView<AuthState> loginView;
+    @Mock private LoginContract.View loginView;
 
     @Mock private CreateToken createToken;
 

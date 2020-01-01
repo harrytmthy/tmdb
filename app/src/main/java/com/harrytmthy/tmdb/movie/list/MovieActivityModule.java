@@ -16,7 +16,7 @@ import dagger.Provides;
 public abstract class MovieActivityModule {
 
     @Provides
-    static MoviePresenter provideMoviePresenter(GetPopularMovies getPopularMovies,
+    static MovieContract.Presenter provideMoviePresenter(GetPopularMovies getPopularMovies,
         GetTopRatedMovies getTopRatedMovies, GetFavoriteMovies getFavoriteMovies,
         MovieModelMapper movieModelMapper) {
         return new MoviePresenter(getPopularMovies, getTopRatedMovies, getFavoriteMovies,

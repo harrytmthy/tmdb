@@ -24,7 +24,7 @@ import lombok.Setter;
  * @version MoviePresenter, v 0.1 2019-12-12 13:13 by Harry Timothy
  */
 @ActivityScope
-public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
+public class MoviePresenter extends BasePresenter<MovieAction, MovieState> implements MovieContract.Presenter {
 
     private final GetPopularMovies getPopularMovies;
 
@@ -34,11 +34,11 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
 
     private final MovieModelMapper movieModelMapper;
 
-    @Getter @VisibleForTesting public BaseUseCase<PagedMovie, Integer> lastUseCase;
+    @VisibleForTesting @Getter public BaseUseCase<PagedMovie, Integer> lastUseCase;
 
-    @Setter @VisibleForTesting public boolean canLoadNextPage;
+    @VisibleForTesting @Setter public boolean canLoadNextPage;
 
-    @Setter @VisibleForTesting public int currentPage;
+    @VisibleForTesting @Setter public int currentPage;
 
     @Inject
     public MoviePresenter(GetPopularMovies getPopularMovies, GetTopRatedMovies getTopRatedMovies,
@@ -74,11 +74,13 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> {
             .onErrorReturn(MovieState.Error::new);
     }
 
+    @Override
     public void loadNextPage() {
         if(!canLoadNextPage) return;
         doAction(new MovieAction.LoadNextPage());
     }
 
+    @Override
     public void refresh() {
         doAction(new MovieAction.Refresh());
     }

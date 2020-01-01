@@ -4,6 +4,7 @@ import com.harrytmthy.domain.authentication.interactor.CreateSession;
 import com.harrytmthy.domain.authentication.interactor.CreateToken;
 import com.harrytmthy.domain.authentication.interactor.ValidateToken;
 import com.harrytmthy.tmdb.authentication.mapper.AuthModelMapper;
+import com.harrytmthy.tmdb.authentication.model.LoginContract;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +16,7 @@ import dagger.Provides;
 @Module
 public abstract class LoginActivityModule {
 
-    @Provides static LoginPresenter provideAuthPresenter(CreateSession createSession,
+    @Provides static LoginContract.Presenter provideAuthPresenter(CreateSession createSession,
         CreateToken createToken, ValidateToken validateToken, AuthModelMapper authModelMapper) {
         return new LoginPresenter(createSession, createToken, validateToken, authModelMapper);
     }

@@ -9,6 +9,7 @@ import com.harrytmthy.domain.authentication.model.TokenParam;
 import com.harrytmthy.tmdb.authentication.mapper.AuthModelMapper;
 import com.harrytmthy.tmdb.authentication.model.AuthAction;
 import com.harrytmthy.tmdb.authentication.model.AuthState;
+import com.harrytmthy.tmdb.authentication.model.LoginContract;
 import com.harrytmthy.tmdb.base.BasePresenter;
 import com.harrytmthy.tmdb.di.ActivityScope;
 
@@ -25,7 +26,7 @@ import lombok.Setter;
  * @version LoginPresenter, v 0.1 2019-12-17 16:51 by Harry Timothy
  */
 @ActivityScope
-public class LoginPresenter extends BasePresenter<AuthAction, AuthState> {
+public class LoginPresenter extends BasePresenter<AuthAction, AuthState> implements LoginContract.Presenter {
 
     private final CreateSession createSession;
 
@@ -73,15 +74,18 @@ public class LoginPresenter extends BasePresenter<AuthAction, AuthState> {
             .onErrorReturn(AuthState.Error::new);
     }
 
+    @Override
     public void login() {
         doAction(new AuthAction.Login());
     }
 
+    @Override
     public void register() {
-        ((LoginView) this.view).onRegisterClicked();
+        ((LoginContract.View) this.view).onRegisterClicked();
     }
 
     @SuppressWarnings("unused")
+    @Override
     public void setPassword(CharSequence s, int start, int before, int count) {
         this.password = s.toString();
     }

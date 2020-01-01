@@ -14,7 +14,13 @@
             type="com.harrytmthy.tmdb.movie.detail.MovieDetailAdapter" />
         <variable
             name="presenter"
-            type="com.harrytmthy.tmdb.movie.detail.MovieDetailPresenter" />
+            type="com.harrytmthy.tmdb.movie.detail.MovieDetailContract.Presenter" />
+        <variable
+            name="state"
+            type="MovieDetailState" />
+        <variable
+            name="favorite"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +30,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="@{!(presenter.state instanceof MovieDetailState.Loading) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{!(state instanceof MovieDetailState.Loading) ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -160,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@color/colorAccent"
-                        android:text="@{presenter.favorite ? @string/activity_movie_detail_button_unfavorite : @string/activity_movie_detail_button_favorite}"
+                        android:text="@{favorite ? @string/activity_movie_detail_button_unfavorite : @string/activity_movie_detail_button_favorite}"
                         android:textColor="@android:color/white"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/genres" />
@@ -223,7 +229,7 @@
             android:id="@+id/loadingIcon"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:visibility="@{presenter.state instanceof MovieDetailState.Loading ? View.VISIBLE : View.GONE}"
+            android:visibility="@{state instanceof MovieDetailState.Loading ? View.VISIBLE : View.GONE}"
             app:animateRotation="@{true}"
             app:srcCompat="@drawable/ic_loading"
             app:tint="?attr/colorControlNormal"
