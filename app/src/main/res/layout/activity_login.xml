@@ -7,7 +7,10 @@
         <import type="com.harrytmthy.tmdb.authentication.model.AuthState" />
         <variable
             name="presenter"
-            type="com.harrytmthy.tmdb.authentication.LoginPresenter" />
+            type="com.harrytmthy.tmdb.authentication.model.LoginContract.Presenter" />
+        <variable
+            name="state"
+            type="AuthState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:visibility="@{!(presenter.state instanceof AuthState.Loading) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{!(state instanceof AuthState.Loading) ? View.VISIBLE : View.GONE}"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +117,7 @@
             android:id="@+id/loadingIcon"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:visibility="@{presenter.state instanceof AuthState.Loading ? View.VISIBLE : View.GONE}"
+            android:visibility="@{state instanceof AuthState.Loading ? View.VISIBLE : View.GONE}"
             app:animateRotation="@{true}"
             app:srcCompat="@drawable/ic_loading"
             app:tint="?attr/colorControlNormal"

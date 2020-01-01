@@ -27,18 +27,20 @@ import androidx.databinding.DataBindingUtil;
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version MovieActivity, v 0.1 2019-12-12 14:43 by Harry Timothy
  */
-public class MovieActivity extends BaseActivity implements MovieView<MovieState> {
+public class MovieActivity extends BaseActivity implements MovieContract.View {
 
-    @Inject MoviePresenter presenter;
+    @Inject MovieContract.Presenter presenter;
 
     @Inject MovieAdapter adapter;
+
+    private ActivityMovieBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
-        ActivityMovieBinding binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(this,
             R.layout.activity_movie);
         binding.setPresenter(presenter);
         binding.setAdapter(adapter);
@@ -62,6 +64,7 @@ public class MovieActivity extends BaseActivity implements MovieView<MovieState>
 
     @Override
     public void render(MovieState state) {
+        binding.setState(state);
         if(state instanceof MovieState.Data) renderDataState(((MovieState.Data) state).data);
         else if(state instanceof MovieState.Error) renderErrorState(((MovieState.Error) state).error);
     }

@@ -2,7 +2,6 @@ package com.harrytmthy.tmdb.movie.detail;
 
 import com.harrytmthy.domain.account.interactor.MarkFavorite;
 import com.harrytmthy.domain.movie.interactor.GetDetails;
-import com.harrytmthy.tmdb.movie.detail.MovieDetailPresenter;
 import com.harrytmthy.tmdb.movie.detail.mapper.MovieDetailModelMapper;
 
 import dagger.Module;
@@ -16,7 +15,7 @@ import dagger.Provides;
 public abstract class MovieDetailActivityModule {
 
     @Provides
-    static MovieDetailPresenter provideMoviePresenter(GetDetails getDetails,
+    static MovieDetailContract.Presenter provideMoviePresenter(GetDetails getDetails,
         MarkFavorite markFavorite, MovieDetailModelMapper movieDetailModelMapper) {
         return new MovieDetailPresenter(getDetails, markFavorite, movieDetailModelMapper);
     }

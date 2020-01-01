@@ -13,7 +13,6 @@ import com.harrytmthy.tmdb.movie.detail.model.MovieDetailState;
 
 import javax.inject.Inject;
 
-import androidx.databinding.ObservableBoolean;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 import lombok.Setter;
@@ -23,7 +22,7 @@ import lombok.Setter;
  * @version MovieDetailPresenter, v 0.1 2019-12-19 16:23 by Harry Timothy
  */
 @ActivityScope
-public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, MovieDetailState> {
+public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, MovieDetailState> implements MovieDetailContract.Presenter {
 
     private final GetDetails getDetails;
 
@@ -33,23 +32,19 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
 
     @Setter private int movieId;
 
-    public final ObservableBoolean favorite;
-
     @Inject
     public MovieDetailPresenter(GetDetails getDetails, MarkFavorite markFavorite,
         MovieDetailModelMapper movieDetailModelMapper) {
         this.getDetails = getDetails;
         this.markFavorite = markFavorite;
         this.movieDetailModelMapper = movieDetailModelMapper;
-        this.favorite = new ObservableBoolean();
     }
 
     @Override
     protected ObservableTransformer<MovieDetailAction, MovieDetailState> dispatch() {
         return actionObservable -> actionObservable.switchMap(action -> {
             if (action instanceof MovieDetailAction.LoadDetails) {
-                return handle(getDetails.execute(movieId))
-                    .startWith(new MovieDetailState.Loading());
+                return handle(getDetails.execute(movieId)).startWith(new MovieDetailState.Loading());
             } else if (action instanceof MovieDetailAction.MarkFavorite) {
                 final FavoriteParam param = new FavoriteParam(true, movieId, DataConstants.DEFAULT_MEDIA_TYPE);
                 return markFavorite.execute(param)
@@ -69,9 +64,9 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
             .onErrorReturn(MovieDetailState.Error::new);
     }
 
-    public void markFavorite() {
-        if(favorite.get()) doAction(new MovieDetailAction.Unfavorite());
-        else doAction(new MovieDetailAction.MarkFavorite());
+    public void markFavorite(boolean favorite) {
+        if(favorite) doAction(new MovieDetailAction.MarkFavorite());
+        else doAction(new MovieDetailAction.Unfavorite());
     }
 
 }

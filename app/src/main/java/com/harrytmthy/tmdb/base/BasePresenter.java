@@ -1,7 +1,5 @@
 package com.harrytmthy.tmdb.base;
 
-import androidx.annotation.CallSuper;
-import androidx.databinding.ObservableField;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
@@ -13,9 +11,9 @@ import io.reactivex.subjects.PublishSubject;
  * @param <A> Action type.
  * @param <S> State type.
  */
-public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
+public abstract class BasePresenter<A extends BaseAction, S extends BaseState> implements BaseContract.BasePresenter<A, S> {
 
-    protected BaseView<S> view;
+    protected BaseContract.BaseView<S> view;
 
     private final CompositeDisposable compositeDisposable;
 
@@ -23,34 +21,32 @@ public abstract class BasePresenter<A extends BaseAction, S extends BaseState> {
 
     private final PublishSubject<A> action;
 
-    public final ObservableField<S> state;
-
     protected BasePresenter() {
         compositeDisposable = new CompositeDisposable();
         dispatcher = dispatch();
         action = PublishSubject.create();
-        state = new ObservableField<>();
     }
 
     abstract protected ObservableTransformer<A, S> dispatch();
 
-    @CallSuper
+    @Override
     public void doAction(A action) {
         this.action.onNext(action);
     }
 
-    public void bind(BaseView<S> view) {
+    @Override
+    public void bind(BaseContract.BaseView<S> view) {
         this.view = view;
-        compositeDisposable.add(action.compose(dispatcher)
+        this.compositeDisposable.add(action.compose(dispatcher)
             .subscribe(state -> {
-                this.state.set(state);
                 this.view.render(state);
             }));
     }
 
+    @Override
     public void unbind() {
-        view = null;
-        compositeDisposable.dispose();
+        this.view = null;
+        this.compositeDisposable.dispose();
     }
 
 }

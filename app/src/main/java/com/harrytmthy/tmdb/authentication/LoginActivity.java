@@ -4,6 +4,7 @@ import com.harrytmthy.data.constants.DataConstants;
 import com.harrytmthy.domain.authentication.model.Auth;
 import com.harrytmthy.tmdb.R;
 import com.harrytmthy.tmdb.authentication.model.AuthState;
+import com.harrytmthy.tmdb.authentication.model.LoginContract;
 import com.harrytmthy.tmdb.base.BaseActivity;
 import com.harrytmthy.tmdb.databinding.ActivityLoginBinding;
 
@@ -20,15 +21,17 @@ import androidx.preference.PreferenceManager;
  * @author Harry Timothy (harry.timothy@dana.id)
  * @version LoginActivity, v 0.1 2019-12-17 18:15 by Harry Timothy
  */
-public class LoginActivity extends BaseActivity implements LoginView<AuthState> {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    @Inject LoginPresenter presenter;
+    @Inject LoginContract.Presenter presenter;
+
+    private ActivityLoginBinding binding;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final ActivityLoginBinding binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(this,
             R.layout.activity_login);
         binding.setLifecycleOwner(this);
         binding.setPresenter(presenter);
@@ -42,6 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginView<AuthState> 
 
     @Override
     public void render(AuthState state) {
+        binding.setState(state);
         if(state instanceof AuthState.Data) renderDataState(((AuthState.Data) state).data);
         if(state instanceof AuthState.Error) renderErrorState(((AuthState.Error) state).error);
     }

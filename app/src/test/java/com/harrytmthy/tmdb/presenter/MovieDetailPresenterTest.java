@@ -3,11 +3,10 @@ package com.harrytmthy.tmdb.presenter;
 import com.harrytmthy.domain.account.interactor.MarkFavorite;
 import com.harrytmthy.domain.movie.interactor.GetDetails;
 import com.harrytmthy.domain.movie.model.MovieDetail;
+import com.harrytmthy.tmdb.movie.detail.MovieDetailContract;
 import com.harrytmthy.tmdb.movie.detail.MovieDetailPresenter;
-import com.harrytmthy.tmdb.movie.detail.MovieDetailView;
 import com.harrytmthy.tmdb.movie.detail.mapper.MovieDetailModelMapper;
 import com.harrytmthy.tmdb.movie.detail.model.MovieDetailAction;
-import com.harrytmthy.tmdb.movie.detail.model.MovieDetailState;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,7 +29,7 @@ public class MovieDetailPresenterTest {
 
     private MovieDetailPresenter movieDetailPresenter;
 
-    @Mock private MovieDetailView<MovieDetailState> movieDetailView;
+    @Mock private MovieDetailContract.View movieDetailView;
 
     @Mock private GetDetails getDetails;
 
@@ -60,13 +59,9 @@ public class MovieDetailPresenterTest {
 
         movieDetailPresenter.doAction(action);
 
-        movieDetailPresenter.favorite.set(true);
+        movieDetailPresenter.markFavorite(true);
 
-        movieDetailPresenter.markFavorite();
-
-        movieDetailPresenter.favorite.set(false);
-
-        movieDetailPresenter.markFavorite();
+        movieDetailPresenter.markFavorite(false);
 
         verify(getDetails).execute(1);
     }
