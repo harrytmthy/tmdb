@@ -11,15 +11,17 @@ public interface AuthState extends BaseState {
 
     final class Loading implements AuthState {}
 
-    final class Data implements AuthState {
+    final class Login implements AuthState {
 
         public final Auth data;
 
-        public Data(Auth data) {
+        public Login(Auth data) {
             this.data = data;
         }
 
     }
+
+    final class Register implements AuthState {}
 
     final class Error implements AuthState {
 

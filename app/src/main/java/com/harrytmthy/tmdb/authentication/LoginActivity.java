@@ -46,12 +46,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void render(AuthState state) {
         binding.setState(state);
-        if(state instanceof AuthState.Data) renderDataState(((AuthState.Data) state).data);
-        if(state instanceof AuthState.Error) renderErrorState(((AuthState.Error) state).error);
+        if(state instanceof AuthState.Login) renderLoginState(((AuthState.Login) state).data);
+        else if(state instanceof AuthState.Register) renderRegisterState();
+        else if(state instanceof AuthState.Error) renderErrorState(((AuthState.Error) state).error);
     }
 
     @Override
-    public void renderDataState(Auth auth) {
+    public void renderLoginState(Auth auth) {
         PreferenceManager.getDefaultSharedPreferences(this)
             .edit()
             .putString(getString(R.string.key_session_id), auth.getSessionId())
@@ -61,13 +62,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void renderErrorState(Throwable error) {
-        handleError(error);
+    public void renderRegisterState() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(DataConstants.URL_REGISTER)));
     }
 
     @Override
-    public void onRegisterClicked() {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(DataConstants.URL_REGISTER)));
+    public void renderErrorState(Throwable error) {
+        handleError(error);
     }
 
     @Override

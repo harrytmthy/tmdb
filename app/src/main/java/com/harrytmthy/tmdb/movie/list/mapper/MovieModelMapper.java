@@ -17,7 +17,7 @@ public class MovieModelMapper implements BaseMapper<PagedMovie, MovieState> {
     @Inject public MovieModelMapper() {}
 
     @Override
-    public MovieState mapToDataState(PagedMovie type) {
+    public MovieState map(PagedMovie type) {
         return new MovieState.Data(type);
     }
 

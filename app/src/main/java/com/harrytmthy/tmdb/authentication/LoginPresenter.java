@@ -57,20 +57,21 @@ public class LoginPresenter extends BasePresenter<AuthAction, AuthState> impleme
                     final TokenParam tokenParam = new TokenParam();
                     tokenParam.setUsername(username);
                     tokenParam.setPassword(password);
-                    tokenParam.setRequestToken(((AuthState.Data) authState).data.getRequestToken());
+                    tokenParam.setRequestToken(((AuthState.Login) authState).data.getRequestToken());
                     return handle(validateToken.execute(tokenParam)).flatMap( state -> {
                         if(state instanceof AuthState.Error) return Observable.just(state);
                         final SessionParam param = new SessionParam();
-                        param.setRequestToken(((AuthState.Data) state).data.getRequestToken());
+                        param.setRequestToken(((AuthState.Login) state).data.getRequestToken());
                         return handle(createSession.execute(param));
                     });
                 }).startWith(new AuthState.Loading());
-            } else return Observable.just(new AuthState.Loading());
+            } else if(action instanceof AuthAction.Register) return Observable.just(new AuthState.Register());
+            else return Observable.just(new AuthState.Loading());
         });
     }
 
     private Observable<AuthState> handle(Observable<Auth> useCase) {
-        return useCase.map(this.authModelMapper::mapToDataState)
+        return useCase.map(this.authModelMapper::map)
             .onErrorReturn(AuthState.Error::new);
     }
 
@@ -81,7 +82,7 @@ public class LoginPresenter extends BasePresenter<AuthAction, AuthState> impleme
 
     @Override
     public void register() {
-        ((LoginContract.View) this.view).onRegisterClicked();
+        doAction(new AuthAction.Register());
     }
 
     @SuppressWarnings("unused")

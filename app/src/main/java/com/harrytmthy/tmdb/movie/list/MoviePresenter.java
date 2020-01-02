@@ -70,7 +70,7 @@ public class MoviePresenter extends BasePresenter<MovieAction, MovieState> imple
         canLoadNextPage = false;
         lastUseCase = useCase;
         return useCase.execute(page)
-            .map(this.movieModelMapper::mapToDataState)
+            .map(this.movieModelMapper::map)
             .onErrorReturn(MovieState.Error::new);
     }
 

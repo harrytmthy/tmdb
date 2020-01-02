@@ -30,8 +30,8 @@ public class AuthModelMapperTest {
         Auth auth = new Auth();
         auth.setRequestToken("01234");
         auth.setSessionId("56789");
-        AuthState authState = authModelMapper.mapToDataState(auth);
-        Auth data = ((AuthState.Data) authState).data;
+        AuthState authState = authModelMapper.map(auth);
+        Auth data = ((AuthState.Login) authState).data;
         assertEquals(auth.getRequestToken(), data.getRequestToken());
         assertEquals(auth.getSessionId(), data.getSessionId());
     }

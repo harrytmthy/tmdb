@@ -17,7 +17,7 @@ public class MovieDetailModelMapper implements BaseMapper<MovieDetail, MovieDeta
     @Inject public MovieDetailModelMapper() {}
 
     @Override
-    public MovieDetailState mapToDataState(MovieDetail type) {
+    public MovieDetailState map(MovieDetail type) {
         return new MovieDetailState.Data(type);
     }
 

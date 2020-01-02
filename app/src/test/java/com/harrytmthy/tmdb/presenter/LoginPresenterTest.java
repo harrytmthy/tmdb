@@ -21,6 +21,7 @@ import io.reactivex.Observable;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
@@ -68,12 +69,9 @@ public class LoginPresenterTest {
 
         verify(createToken).execute(null);
         verifyZeroInteractions(validateToken);
-    }
 
-    @Test
-    public void register_inLoginPresenter_worksCorrectly() {
         loginPresenter.register();
-        verify(loginView).onRegisterClicked();
+        verifyNoMoreInteractions(createToken);
     }
 
     @Test

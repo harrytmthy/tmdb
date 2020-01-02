@@ -31,7 +31,7 @@ public class MovieModelMapperTest {
         pagedMovie.setPage(1);
         pagedMovie.setTotalPages(12);
 
-        MovieState movieState = movieModelMapper.mapToDataState(pagedMovie);
+        MovieState movieState = movieModelMapper.map(pagedMovie);
         PagedMovie data = ((MovieState.Data) movieState).data;
 
         assertEquals(pagedMovie.getPage(), data.getPage());

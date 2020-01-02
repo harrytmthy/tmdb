@@ -9,6 +9,6 @@ package com.harrytmthy.tmdb.base;
  */
 public interface BaseMapper<D, S extends BaseState> {
 
-    S mapToDataState(D type);
+    S map(D type);
 
 }
