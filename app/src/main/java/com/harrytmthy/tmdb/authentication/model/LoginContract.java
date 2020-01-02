@@ -11,9 +11,9 @@ public interface LoginContract {
 
     interface View extends BaseContract.BaseView<AuthState> {
 
-        void onRegisterClicked();
+        void renderLoginState(Auth auth);
 
-        void renderDataState(Auth auth);
+        void renderRegisterState();
 
         void renderErrorState(Throwable error);
 

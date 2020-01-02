@@ -60,7 +60,7 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailAction, Movie
     }
 
     private Observable<MovieDetailState> handle(Observable<MovieDetail> useCase) {
-        return useCase.map(this.movieDetailModelMapper::mapToDataState)
+        return useCase.map(this.movieDetailModelMapper::map)
             .onErrorReturn(MovieDetailState.Error::new);
     }
 

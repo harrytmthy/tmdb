@@ -32,7 +32,7 @@ public class MovieDetailModelMapperTest {
         movieDetail.setId(1);
         movieDetail.setOriginalTitle("Test Movie");
 
-        MovieDetailState state = movieDetailModelMapper.mapToDataState(movieDetail);
+        MovieDetailState state = movieDetailModelMapper.map(movieDetail);
         MovieDetail data = ((MovieDetailState.Data) state).data;
 
         assertEquals(movieDetail.getId(), data.getId());

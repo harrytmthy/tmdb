@@ -17,8 +17,8 @@ public class AuthModelMapper implements BaseMapper<Auth, AuthState> {
     @Inject public AuthModelMapper() {}
 
     @Override
-    public AuthState mapToDataState(Auth type) {
-        return new AuthState.Data(type);
+    public AuthState map(Auth type) {
+        return new AuthState.Login(type);
     }
 
 }

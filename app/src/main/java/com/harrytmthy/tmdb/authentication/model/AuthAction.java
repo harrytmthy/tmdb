@@ -12,4 +12,6 @@ public interface AuthAction extends BaseAction {
 
     final class Login implements AuthAction {}
 
+    final class Register implements AuthAction {}
+
 }
